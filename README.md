@@ -5,7 +5,7 @@
 Like there needed to be another one, right? Well sometimes you just have to write it yourself.
 
 ```javascript
-var express = require("express");
+var express = require('express');
 var Bird = require('bird')({
   oauth_token : 'my-twitter-consumer-token',
   oauth_token_secret : 'my-twitter-consumer-token-secret',
