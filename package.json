@@ -1,0 +1,32 @@
+{
+  "name": "bird",
+  "version": "0.1.0",
+  "author": "Aaron Ackerman <theron17@gmail.com>",
+  "description": "Dead Simple Twitter API Wrapper",
+  "contributors": [ 
+    {
+      "name": "Aaron Ackerman",
+      "email": "theron17@gmail.com"
+    } 
+  ],
+  "bin": {
+    "bird": "./bin/bird"
+  },
+  "main": "./bird",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theron17/bird.git"
+  },
+  "keywords": [
+    "twitter",
+    "api",
+  ],
+  "dependencies" : {
+    "oauth"   :  ">=0.9.6"
+  },
+  "noAnalyze": true,
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.6"
+  }
+}
