@@ -9,9 +9,6 @@
       "email": "theron17@gmail.com"
     } 
   ],
-  "bin": {
-    "bird": "./bin/bird"
-  },
   "main": "./bird",
   "repository": {
     "type": "git",
