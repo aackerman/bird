@@ -1,10 +1,10 @@
-##Bird.js
+## Bird.js
 
-###Dead simple wrapper for the Twitter API
+### Dead simple wrapper for the Twitter API
 
 Like there needed to be another one, right? Well sometimes you just have to write it yourself.
 
-<code>
+```javascript
 var express = require('express');
 var Bird = require('bird')({
   oauth_token : 'my-twitter-consumer-token',
@@ -43,7 +43,7 @@ app.get('/login', function(req, res){
 app.get('/callback', function(req, res){
     Bird.auth_callback(req, function(err, access_token, access_token_secret, data){
       if (err) {
-      	//handle the error here if twitter returns an error
+        //handle the error here if twitter returns an error
         res.send(err);
       } else {
         req.session.screen_name = data.screen_name;
@@ -68,5 +68,5 @@ app.get('/home_timeline', function(req, res){
       }
     });
 });
-</code>
+```
 
