@@ -19,7 +19,7 @@
   },
   "keywords": [
     "twitter",
-    "api",
+    "api"
   ],
   "dependencies" : {
     "oauth"   :  ">=0.9.6"
