@@ -1,5 +1,5 @@
-
-s = require('express');
+<code>
+var express = require('express');
 var Bird = require('bird')({
   oauth_token : 'my-twitter-consumer-token',
   oauth_token_secret : 'my-twitter-consumer-token-secret',
@@ -61,4 +61,5 @@ app.get('/home_timeline', function(req, res){
         res.send(data);  
       }
     });
-});127.0.0.1	dev.twitterfriendsmap.com
+});
+</code>
