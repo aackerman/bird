@@ -1,4 +1,10 @@
-<code>
+## Bird.js
+
+### Dead simple wrapper for the Twitter API
+
+Like there needed to be another one, right? Well sometimes you just have to write it yourself.
+
+```javascript
 var express = require('express');
 var Bird = require('bird')({
   oauth_token : 'my-twitter-consumer-token',
@@ -44,7 +50,7 @@ app.get('/callback', function(req, res){
         req.session.access_token = access_token;
         req.session.access_token_secret = access_token_secret;
         req.session.signedIn = 1;
-
+        
         res.redirect('/');
       }
     });
@@ -62,4 +68,4 @@ app.get('/home_timeline', function(req, res){
       }
     });
 });
-</code>
+```
