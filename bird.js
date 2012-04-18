@@ -354,7 +354,7 @@ module.exports = function(options){
           
           return function(req, options, cb) {
             //if the route is an array use the options.id to create the url
-            if (typeof url !== 'string') {
+            if (typeof url == 'array') {
               if(options.id) {
                 url = routes[r].url[0] + options.id + routes[r].url[1];
                 delete options.id;
@@ -363,7 +363,7 @@ module.exports = function(options){
               }
             }
 
-            if (typeof url == 'string' && options.id) {
+            if (typeof url == 'string') {
               if (options.id) {
                 url += options.id + '.json';
                 delete options.id;
