@@ -18,27 +18,35 @@ module.exports = function(options){
 		})();
 
 		this.get = function(url, req, cb){
-			this.consumer.get(
-				url,
-				req.session.access_token,
-				req.session.access_token_secret,
-				function(err, data, response){
-					cb(err, data, response);
-				}
-			);
+			if (req.session.access_token && req.session.access_token_secret) {
+				this.consumer.get(
+					url,
+					req.session.access_token,
+					req.session.access_token_secret,
+					function(err, data, response){
+						cb(err, data, response);
+					}
+				);	
+			} else {
+				cb(throw new Error('missing access token'));
+			}
 		};
 
 		this.post = function(url, req, cb){
-			this.consumer.post(
-				url,
-				req.session.access_token,
-				req.session.access_token_secret,
-				null,
-				null,
-				function(err, data, response){
-					cb(err, data, response);
-				}
-			);
+			if (req.session.access_token && req.session.access_token_secret) {
+				this.consumer.post(
+					url,
+					req.session.access_token,
+					req.session.access_token_secret,
+					null,
+					null,
+					function(err, data, response){
+						cb(err, data, response);
+					}
+				);
+			} else {
+				cb(throw new Error('missing access token'));
+			}
 		};
 
 		this.send = function(url, req, type, options, cb){
@@ -346,14 +354,22 @@ module.exports = function(options){
 					
 					return function(req, options, cb) {
 						//if the route is an array use the options.id to create the url
-						if (typeof url !== 'string' && options.id) {
-							url = routes[r].url[0] + options.id + routes[r].url[1];
-							delete options.id;
+						if (typeof url !== 'string') {
+							if(options.id) {
+								url = routes[r].url[0] + options.id + routes[r].url[1];
+								delete options.id;
+							}	else {
+								cb(throw new Error('missing parameter id in options'));
+							}
 						}
 
 						if (typeof url == 'string' && options.id) {
-							url += options.id + '.json';
-							delete options.id;
+							if (options.id) {
+								url += options.id + '.json';
+								delete options.id;
+							} else {
+								cb(throw new Error('missing parameter id in options'));
+							}
 						}
 						
 						this.send(url, req, type, options, cb);
