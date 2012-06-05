@@ -2,6 +2,7 @@ var oauth = require('oauth');
 var qs = require('querystring');
 
 module.exports = function(options){
+
   var Bird = function(options){
     var oauth_token = options.oauth_token;
     var oauth_token_secret = options.oauth_token_secret;
@@ -28,7 +29,7 @@ module.exports = function(options){
           }
         );  
       } else {
-        cb(throw new Error('missing access token'));
+        cb({result: 'error', reason: 'missing access token'});
       }
     };
 
@@ -45,24 +46,12 @@ module.exports = function(options){
           }
         );
       } else {
-        cb(throw new Error('missing access token'));
+        cb({result: 'error', reason: 'missing access token'});
       }
     };
 
-    this.send = function(url, req, type, options, cb){
-      if (typeof options == 'function') {
-        cb = options;
-      }
-      //stringify options params
-      if (typeof options == 'object') {
-        url += '?'+qs.stringify(options);
-      }
-
-      // use the default base url
-      if(!url.match(/http/)) {
-        url = this.base_url + url;
-      }
-      this[type](url, req, cb);
+    this.send = function(url, req, verb, cb){
+      this[verb](url, req, cb);
     }
 
     /**
@@ -91,290 +80,255 @@ module.exports = function(options){
     **/
     var routes = {
 
-      home_timeline : {
-        url  : 'statuses/home_timeline.json',
-        type : 'get'
-      },
-      
-      mentions : {
-        url  : 'statuses/mentions.json',
-        type : 'get'
-      },
+      get : {
+        home_timeline : {
+          url  : 'statuses/home_timeline.json'
+        },
+        
+        mentions : {
+          url  : 'statuses/mentions.json'
+        },
 
-      retweeted_by_me : {
-        url  : 'statuses/retweeted_by_me.json',
-        type : 'get'
-      },
+        retweeted_by_me : {
+          url  : 'statuses/retweeted_by_me.json'
+        },
 
-      retweeted_to_me : {
-        url  : 'statuses/retweeted_by_me.json',
-        type : 'get'
-      },
+        retweeted_to_me : {
+          url  : 'statuses/retweeted_by_me.json'
+        },
 
-      user_timeline : {
-        url  : 'statuses/user_timeline.json',
-        type : 'get'
-      },
+        user_timeline : {
+          url  : 'statuses/user_timeline.json'
+        },
 
-      retweeted_to_user : {
-        url  : 'statuses/retweeted_to_user.json',
-        type : 'get'
-      },
+        retweeted_to_user : {
+          url  : 'statuses/retweeted_to_user.json'
+        },
 
-      retweeted_by_user : {
-        url  : 'statuses/retweeted_by_user.json',
-        type : 'get'
-      },
+        retweeted_by_user : {
+          url  : 'statuses/retweeted_by_user.json'
+        },
 
-      tweet : {
-        url  : 'statuses/update.json',
-        type : 'post'
-      },
+        show : {
+          url  : 'statuses/show.json'
+        },
 
-      show : {
-        url  : 'statuses/show.json',
-        type : 'get'
-      },
+        retweet_ids : {
+          url  : 'statuses/retweets/'
+        },
 
-      retweet_ids : {
-        url  : 'statuses/retweets/',
-        type : 'get'
-      },
+        direct_messages : {
+          url  : 'direct_messages.json'
+        },
 
-      delete_tweet : {
-        url  : 'statuses/destroy/',
-        type : 'post'
-      },
+        direct_messages_sent : {
+          url  : 'direct_messages/sent.json'
+        },
 
-      retweet : {
-        url  : 'statuses/retweet/',
-        type : 'post'
-      },
+        direct_messages_show : {
+          url  : 'direct_messages/show/'
+        },
 
-      oembed : {
-        url  : 'statuses/oembed.json',
-        type : 'post'
-      },
+        followers : {
+          url  : 'followers/ids.json'
+        },
 
-      search : {
-        url  : 'http://search.twitter.com/search.json',
-        type : 'post'
-      },
+        friends : {
+          url  : 'friends/ids.json'
+        },
 
-      direct_messages : {
-        url  : 'direct_messages.json',
-        type : 'get'
-      },
+        friendships_exists : {
+          url  : 'friendships/exists.json'
+        },
 
-      direct_messages_sent : {
-        url  : 'direct_messages/sent.json',
-        type : 'get'
-      },
+        friendships_incomming : {
+          url  : 'friendships/incomming.json'
+        },
 
-      direct_messages_destroy : {
-        url  : 'direct_messages/destroy/',
-        type : 'post'
-      },
+        friendships_outgoing : {
+          url  : 'friendships/outgoing.json'
+        },
 
-      direct_messages_new : {
-        url  : 'direct_messages/new/',
-        type : 'post'
-      },
+        friendships_show : {
+          url  : 'friendships/show.json'
+        },
 
-      direct_messages_show : {
-        url  : 'direct_messages/show/',
-        type : 'get'
-      },
+        friendships_lookup : {
+          url  : 'friendships/lookup.json'
+        },
 
-      followers : {
-        url  : 'followers/ids.json',
-        type : 'get'
-      },
+        friendships_no_retweet_ids : {
+          url  : 'friendships/no_retweet_ids.json'
+        },
 
-      friends : {
-        url  : 'friends/ids.json',
-        type : 'get'
-      },
+        users_lookup : {
+          url  : 'users/lookup.json'
+        },
 
-      friendships_exists : {
-        url  : 'friendships/exists.json',
-        type : 'get'
-      },
+        users_search : {
+          url  : 'users/search.json'
+        },
 
-      friendships_incomming : {
-        url  : 'friendships/incomming.json',
-        type : 'get'
-      },
+        users_show : {
+          url  : 'users/show.json'
+        },
 
-      friendships_outgoing : {
-        url  : 'friendships/outgoing.json',
-        type : 'get'
-      },
+        users_contributees : {
+          url  : 'users/contributees.json'
+        },
 
-      friendships_show : {
-        url  : 'friendships/show.json',
-        type : 'get'
-      },
+        users_contributors : {
+          url  : 'users/contributors.json'
+        },
 
-      friendships_create : {
-        url  : 'friendships/create.json',
-        type : 'post'
-      },
+        favorites : {
+          url  : 'favorites.json'
+        },
 
-      friendships_destroy : {
-        url  : 'friendships/destroy.json',
-        type : 'post'
+        account_rate_limit_status : {
+          url  : 'account/rate_limit_status.json'
+        },
+
+        account_verify_credentials : {
+          url  : 'account/verify_credentials.json'
+        },
+
+        account_totals : {
+          url  : 'account/totals.json'
+        },
+
+        account_get_settings : {
+          url  : 'account/settings.json'
+        },
+
+        /* Undocumented APIs */
+        related : {
+          url  : 'related_results/show/'
+        },
+
+        tweet_summary : {
+          url  : ['statuses/', '/activity/summary.json']
+        }
       },
 
-      friendships_lookup : {
-        url  : 'friendships/lookup.json',
-        type : 'get'
-      },
+      post : {
+        tweet : {
+          url  : 'statuses/update.json'
+        },
+        delete_tweet : {
+          url  : 'statuses/destroy/'
+        },
 
-      friendships_update : {
-        url  : 'friendships/update.json',
-        type : 'post'
-      },
+        retweet : {
+          url  : 'statuses/retweet/'
+        },
 
-      friendships_no_retweet_ids : {
-        url  : 'friendships/no_retweet_ids.json',
-        type : 'get'
-      },
+        oembed : {
+          url  : 'statuses/oembed.json'
+        },
 
-      users_lookup : {
-        url  : 'users/lookup.json',
-        type : 'get'
-      },
+        search : {
+          url  : 'http://search.twitter.com/search.json'
+        },
 
-      users_search : {
-        url  : 'users/search.json',
-        type : 'get'
-      },
+        direct_messages_destroy : {
+          url  : 'direct_messages/destroy/'
+        },
 
-      users_show : {
-        url  : 'users/show.json',
-        type : 'get'
-      },
+        direct_messages_new : {
+          url  : 'direct_messages/new/'
+        },
 
-      users_contributees : {
-        url  : 'users/contributees.json',
-        type : 'get'
-      },
+        friendships_create : {
+          url  : 'friendships/create.json'
+        },
 
-      users_contributors : {
-        url  : 'users/contributors.json',
-        type : 'get'
-      },
+        friendships_destroy : {
+          url  : 'friendships/destroy.json'
+        },
 
-      favorites : {
-        url  : 'favorites.json',
-        type : 'get'
-      }, 
+        friendships_update : {
+          url  : 'friendships/update.json'
+        },
 
-      favorites_create : {
-        url  : 'favorites/create/',
-        type : 'post'
-      },
+        favorites_create : {
+          url  : 'favorites/create/'
+        },
 
-      favorites_delete : {
-        url  : 'favorites/destroy/',
-        type : 'post'
-      }, 
+        favorites_delete : {
+          url  : 'favorites/destroy/'
+        }, 
 
-      account_rate_limit_status : {
-        url  : 'account/rate_limit_status.json',
-        type : 'get'
-      },
+        acount_end_session : {
+          url  : 'account/end_session.json'
+        },
 
-      account_verify_credentials : {
-        url  : 'account/verify_credentials.json',
-        type : 'get'
-      },
+        account_update_profile : {
+          url  : 'account/update_profile.json'
+        },
 
-      acount_end_session : {
-        url  : 'account/end_session.json',
-        type : 'post'
-      },
+        account_update_profile_background_image : {
+          url  : 'account/update_profile_background_image.json'
+        },
 
-      account_update_profile : {
-        url  : 'account/update_profile.json',
-        type : 'post'
-      },
+        account_update_profile_colors : {
+          url  : 'account/update_profile_colors.json'
+        },
 
-      account_update_profile_background_image : {
-        url  : 'account/update_profile_background_image.json',
-        type : 'post'
-      },
+        account_update_profile_image : {
+          url  : 'account/update_profile_image.json'
+        },
 
-      account_update_profile_colors : {
-        url  : 'account/update_profile_colors.json',
-        type : 'post'
-      },
-
-      account_update_profile_image : {
-        url  : 'account/update_profile_image.json',
-        type : 'post'
-      },
-
-      account_totals : {
-        url  : 'account/totals.json',
-        type : 'get'
-      },
-
-      account_get_settings : {
-        url  : 'account/settings.json',
-        type : 'get'
-      },
-
-      account_update_settings : {
-        url  : 'account/settings.json',
-        type : 'post'
-      },
-
-      /* Undocumented APIs */
-
-      related : {
-        url  : 'related_results/show/',
-        type : 'get'
-      },
-
-      tweet_summary : {
-        url  : ['statuses/', '/activity/summary.json'],
-        type : 'get'
+        account_update_settings : {
+          url  : 'account/settings.json'
+        }
       }
     }
 
+    var parseUrl = function(url, options, cb){
+      // If the url is an array, use this pattern to create the final url
+      if(!options.id) {
+        cb({result: 'error', reason: 'missing parameter id in options')});
+        return;
+      } else {
+        if (typeof url == 'array') {
+          url = url[0] + options.id + url[1];
+          delete options.id;
+        }
 
-    //use routes to proxy to send functions
-    for(var r in routes) {
-      if(routes.hasOwnProperty(r)) {
-        this[r] = (function(){
-          var url = routes[r].url;
-          var type = routes[r].type;
-          
-          return function(req, options, cb) {
-            //if the route is an array use the options.id to create the url
-            if (typeof url == 'array') {
-              if(options.id) {
-                url = routes[r].url[0] + options.id + routes[r].url[1];
-                delete options.id;
-              } else {
-                cb(throw new Error('missing parameter id in options'));
-              }
-            }
+        // If the url is an string, use this pattern to create the final url
+        if (typeof url == 'string') {
+          url += options.id + '.json';
+          delete options.id;
+        }
 
-            if (typeof url == 'string') {
-              if (options.id) {
-                url += options.id + '.json';
-                delete options.id;
-              } else {
-                cb(throw new Error('missing parameter id in options'));
-              }
-            }
-            
-            this.send(url, req, type, options, cb);
-          }
-        })();
+        //stringify options params
+        url += '?' + qs.stringify(options);
+
+        // use the default base url if base protocol is not present
+        if(!url.match(/http/)) {
+          url = this.base_url + url;
+        }
+
+        return url;
+      }
+    }
+
+    var applyRoute = function(route, verb){
+      var url = routes[route].url;
+
+      return function(req, options, cb){
+        var url = parseUrl(url, options, cb);
+        this.send(url, req, verb, cb);
+      }
+    }
+
+    //partially apply routes
+    for(var verb in routes) {
+      if(routes.hasOwnProperty(verb)){
+        verb.forEach(function(route){
+          this[route] = applyRoute(route, verb);
+        });
       }
     }
   };
