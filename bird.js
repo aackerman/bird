@@ -4,8 +4,6 @@ var qs = require('querystring');
 module.exports = function(options){
 
   var Bird = function(options){
-    var oauth_token = options.oauth_token;
-    var oauth_token_secret = options.oauth_token_secret;
     this.base_url = 'http://api.twitter.com/1/';
 
     /**
@@ -15,25 +13,28 @@ module.exports = function(options){
       return new oauth.OAuth(
         "https://twitter.com/oauth/request_token",
         "https://twitter.com/oauth/access_token",
-        oauth_token, oauth_token_secret, "1.0A", options.callback, "HMAC-SHA1");
+        options.oauth_token, options.oauth_token_secret, "1.0A", options.callback, "HMAC-SHA1");
     })();
 
-    this.get = function(url, req, cb){
+    /**
+      Oauth send functions
+    **/
+    this.get = function(url, req, callback){
       if (req.session.access_token && req.session.access_token_secret) {
         this.consumer.get(
           url,
           req.session.access_token,
           req.session.access_token_secret,
           function(err, data, response){
-            cb(err, data, response);
+            callback(err, data, response);
           }
         );  
       } else {
-        cb({result: 'error', reason: 'missing access token'});
+        callback({result: 'error', reason: 'missing access token'});
       }
     };
 
-    this.post = function(url, req, cb){
+    this.post = function(url, req, callback){
       if (req.session.access_token && req.session.access_token_secret) {
         this.consumer.post(
           url,
@@ -42,35 +43,31 @@ module.exports = function(options){
           null,
           null,
           function(err, data, response){
-            cb(err, data, response);
+            callback(err, data, response);
           }
         );
       } else {
-        cb({result: 'error', reason: 'missing access token'});
+        callback({result: 'error', reason: 'missing access token'});
       }
     };
-
-    this.send = function(url, req, verb, cb){
-      this[verb](url, req, cb);
-    }
 
     /**
       Auth functions
     **/
-    this.login = function(req, cb){
+    this.login = function(req, callback){
       this.consumer.getOAuthRequestToken(
         function(err, oauth_token, oauth_token_secret, results){
-          cb(err, oauth_token, oauth_token_secret, results);
+          callback(err, oauth_token, oauth_token_secret, results);
       });
     };
 
-    this.auth_callback = function(req, cb){
+    this.auth_callback = function(req, callback){
       this.consumer.getOAuthAccessToken(
         req.session.oauth_token,
         req.session.oauth_token_secret,
         req.query.oauth_verifier,
         function(err, access_token, access_token_secret, results) {
-          cb(err, access_token, access_token_secret, results);
+          callback(err, access_token, access_token_secret, results);
         }
       );
     };
@@ -285,12 +282,12 @@ module.exports = function(options){
       }
     }
 
-    var parseUrl = function(url, options, cb){
-      // If the url is an array, use this pattern to create the final url
+    var parseUrl = function(url, options, callback){
       if(!options.id) {
-        cb({result: 'error', reason: 'missing parameter id in options')});
+        callback({result: 'error', reason: 'missing parameter id in options'});
         return;
       } else {
+        // If the url is an array, use this pattern to create the final url
         if (typeof url == 'array') {
           url = url[0] + options.id + url[1];
           delete options.id;
@@ -314,21 +311,20 @@ module.exports = function(options){
       }
     }
 
-    var applyRoute = function(route, verb){
-      var url = routes[route].url;
-
+    var createRoute = function(route, verb){
+      var url = routes[verb][route].url;
       return function(req, options, cb){
-        var url = parseUrl(url, options, cb);
-        this.send(url, req, verb, cb);
+        var newUrl = parseUrl(url, options, cb);
+        this[verb](newUrl, req, cb);
       }
     }
 
     //partially apply routes
     for(var verb in routes) {
       if(routes.hasOwnProperty(verb)){
-        verb.forEach(function(route){
-          this[route] = applyRoute(route, verb);
-        });
+        Object.keys(routes[verb]).forEach(function(route){
+          this[route] = createRoute(route, verb);
+        }.bind(this));
       }
     }
   };
