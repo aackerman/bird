@@ -319,7 +319,7 @@ module.exports = function(options){
       }
     }
 
-    //partially apply routes
+    //create routes
     for(var verb in routes) {
       if(routes.hasOwnProperty(verb)){
         Object.keys(routes[verb]).forEach(function(route){
