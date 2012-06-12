@@ -8,7 +8,7 @@ We've got streams! As of version 0.3.0. Bird.login and Bird.auth_callback requir
 
 The core API is pretty simple to understand.
 
-All functions (options, callback) signature, requiring an oauth parameter on the options object. All parameters on the options object aside from the oauth parameter will be parsed into the route's url. Bird.login and Bird.auth_callback, only allow for a callback interface all other routes allow the option to use a streaming interface in addition to the standard callback interface.
+All functions (options, callback) signature. All parameters on the options object aside from the oauth parameter will be parsed into the route's url. Bird.login and Bird.auth_callback, only allow for a callback interface all other routes allow the option to use a streaming interface in addition to the standard callback interface.
 
 
 ```javascript
