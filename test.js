@@ -1,21 +1,10 @@
-## Bird.js
-
-### Dead simple wrapper for the Twitter API
-
-Like there needed to be another one, right? Well sometimes you just have to write it yourself.
-
-We've got streams! As of version 0.3.0. Bird.login and Bird.auth_callback require callbacks as you will need to save tokens. All other routes return a stream that can be piped into the response and straight to the user. Callbacks can be used as normal, but streams are hot and you should learn to use them. Please note the instantiation differences between version 0.2.2 and 0.3.0. For each request, it is necessary to create an instance of Bird supplying oauth parameters to the constructor. If the user is logged in it is necessary to save the users access tokens in session variables for ease of access. The previous interface was unwieldly and has been deprecated. 
-
-The core API is pretty simple to understand.
-
-All functions (options, callback) signature, requiring an oauth parameter on the options object. All parameters on the options object aside from the oauth parameter will be parsed into the route's url. Bird.login and Bird.auth_callback, only allow for a callback interface all other routes allow the option to use a streaming interface in addition to the standard callback interface.
-
-
-```javascript
 var express = require('express');
 var qs = require('querystring');
 
-var Bird = require('bird');
+
+//this isn't really a test, it's just an easy example to build from
+
+var Bird = require('./bird');
 var oauth = {
   consumer_key : 'XXXXXXXXXXXXXXXXXX',
   consumer_secret : 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -93,4 +82,3 @@ var port = 7700;
 app.listen(port);
 
 console.log('server listening on port ' + port);
-```

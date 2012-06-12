@@ -3,11 +3,11 @@
   "version": "0.2.2",
   "author": "Aaron Ackerman <theron17@gmail.com>",
   "description": "Dead Simple Twitter API Wrapper",
-  "contributors": [ 
+  "contributors": [
     {
       "name": "Aaron Ackerman",
       "email": "theron17@gmail.com"
-    } 
+    }
   ],
   "main": "./bird",
   "repository": {
@@ -18,8 +18,8 @@
     "twitter",
     "api"
   ],
-  "dependencies" : {
-    "oauth"   :  ">=0.9.6"
+  "dependencies": {
+    "request": "~2.9.202"
   },
   "noAnalyze": true,
   "license": "MIT",
