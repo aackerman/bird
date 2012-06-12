@@ -6,7 +6,7 @@ Like there needed to be another one, right? Well sometimes you just have to writ
 
 The core API is pretty simple to understand.
 
-All functions (options, callback) signature. All parameters on the options object aside from the oauth parameter will be parsed into the route's url. Bird.login and Bird.auth_callback, only allow for a callback interface all other routes allow the option to use a streaming interface in addition to the standard callback interface.
+All functions use the following signature (options, callback). All parameters on the options object aside from the oauth parameter will be parsed into the route's url. Bird.login and Bird.auth_callback, only allow for a callback interface all other routes allow the option to use a streaming interface in addition to the standard callback interface.
 
 
 ```javascript
