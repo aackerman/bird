@@ -32,7 +32,6 @@ app.get('/', function(req, res){
 });
 
 app.get('/login', function(req, res) {
-  console.log(req.route.path);
   req.session.oauth = oauth;
   Bird.login(req.session.oauth, function(err,r,body){
     if (err) {
@@ -57,7 +56,6 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/callback', function(req, res){
-  console.log(req.route.path);
   //set oauth verifier for the users session
   req.session.oauth.verifier = req.query.oauth_verifier;
   Bird.auth_callback(req.session.oauth, function(err, r, body){
