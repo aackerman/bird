@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Bird by theron17</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Bird</h1>
+        <p class="header">Twitter API wrapper</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/theron17/bird/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/theron17/bird/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/theron17">theron17</a></p>
+
+
+      </header>
+      <section>
+        <h2>Bird.js</h2>
+
+<h3>Simple wrapper around request to consume the Twitter API</h3>
+
+<p>Like there needed to be another one, right? Well sometimes you just have to write it yourself.</p>
+
+<p>The core API is pretty simple to understand.</p>
+
+<p>All functions use the following signature (options, callback). All parameters on the options object aside from the oauth parameter will be parsed into the route's url. Bird.login and Bird.auth_callback, only allow for a callback interface all other routes allow the option to use a streaming interface in addition to the standard callback interface.</p>
+
+<div class="highlight">
+<pre><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">qs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'querystring'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">Bird</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'bird'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">oauth</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">consumer_key</span> <span class="o">:</span> <span class="s1">'XXXXXXXXXXXXXXXXXX'</span><span class="p">,</span>
+  <span class="nx">consumer_secret</span> <span class="o">:</span> <span class="s1">'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'</span><span class="p">,</span>
+  <span class="nx">callback</span><span class="o">:</span> <span class="s1">'http://localhost:7700/callback'</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+
+<span class="c1">//setup express middleware</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">bodyParser</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">cookieParser</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">session</span><span class="p">({</span><span class="nx">secret</span><span class="o">:</span> <span class="s2">"a"</span><span class="p">}));</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">'&lt;a href="/login"&gt;Login&lt;/a&gt;&lt;br&gt;&lt;a href="/home_timeline.json"&gt;Home Timeline&lt;/a&gt;'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/login'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span> <span class="o">=</span> <span class="nx">oauth</span><span class="p">;</span>
+  <span class="nx">Bird</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">r</span><span class="p">,</span><span class="nx">body</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">//add error handling here for when twitter returns an error</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">"Error getting OAuth request token"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">//parse tokens received from twitter</span>
+      <span class="kd">var</span> <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+      <span class="c1">//set temporary oauth tokens for the users session</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">token</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">oauth_token</span><span class="p">;</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">token_secret</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">oauth_token_secret</span><span class="p">;</span>
+
+      <span class="c1">//redirect user to authorize with temporary token</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s2">"https://twitter.com/oauth/authorize?oauth_token="</span> <span class="o">+</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">oauth_token</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/logout'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/callback'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="c1">//set oauth verifier for the users session</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">verifier</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">oauth_verifier</span><span class="p">;</span>
+  <span class="nx">Bird</span><span class="p">.</span><span class="nx">auth_callback</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">body</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">//add error handling here for when twitter returns an error</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">//parse tokens received from twitter</span>
+      <span class="kd">var</span> <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+      <span class="c1">//set permanent access tokens for the users session</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">token</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">oauth_token</span><span class="p">;</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">token_secret</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">oauth_token_secret</span><span class="p">;</span>
+
+      <span class="c1">//redirect the user</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">//route using a stream</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/home_timeline.json'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">oauth</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">oauth</span><span class="p">;</span>
+
+  <span class="c1">//Bird.home_timeline will return a stream that can be piped to a response</span>
+  <span class="nx">Bird</span><span class="p">.</span><span class="nx">home_timeline</span><span class="p">(</span><span class="nx">options</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="mi">7700</span><span class="p">;</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'server listening on port '</span> <span class="o">+</span> <span class="nx">port</span><span class="p">);</span>
+</pre>
+</div>
+
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+		
+  </body>
+</html>
