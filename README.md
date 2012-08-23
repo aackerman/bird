@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/theron17/bird.png)](http://travis-ci.org/theron17/bird)
 ## Bird.js
 
 ### Simple wrapper around request to consume the Twitter API
