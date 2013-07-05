@@ -1,12 +1,11 @@
 var request = require('request');
-var Stream = require('stream').Stream;
 var qs = require('querystring');
 
 //constructor
 var Bird = {};
 
 Bird.login = function(oauth, callback){
-  var url = 'https://twitter.com/oauth/request_token';
+  var url = 'https://api.twitter.com/oauth/request_token';
   request.post({url:url, oauth:oauth}, callback);
 };
 
@@ -34,7 +33,7 @@ Bird.get = function(options, callback){
 //add other methods to the prototype
 (function(){
 
-  var base_url = 'http://api.twitter.com/1/';
+  var base_url = 'https://api.twitter.com/1.1/';
 
   var routes = {
 
@@ -42,17 +41,13 @@ Bird.get = function(options, callback){
       home_timeline : {
         url  : 'statuses/home_timeline.json'
       },
-      
+
       mentions : {
-        url  : 'statuses/mentions.json'
+        url  : 'statuses/mentions_timeline.json'
       },
 
-      retweeted_by_me : {
-        url  : 'statuses/retweeted_by_me.json'
-      },
-
-      retweeted_to_me : {
-        url  : 'statuses/retweeted_by_me.json'
+      retweeted_of_me : {
+        url  : 'statuses/retweeted_of_me.json'
       },
 
       user_timeline : {
@@ -84,7 +79,7 @@ Bird.get = function(options, callback){
       },
 
       direct_messages_show : {
-        url  : 'direct_messages/show/'
+        url  : 'direct_messages/show.json'
       },
 
       followers : {
@@ -190,11 +185,11 @@ Bird.get = function(options, callback){
       },
 
       direct_messages_destroy : {
-        url  : 'direct_messages/destroy/'
+        url  : 'direct_messages/destroy.json'
       },
 
       direct_messages_new : {
-        url  : 'direct_messages/new/'
+        url  : 'direct_messages/new.json'
       },
 
       friendships_create : {
@@ -215,7 +210,7 @@ Bird.get = function(options, callback){
 
       favorites_delete : {
         url  : 'favorites/destroy/'
-      }, 
+      },
 
       acount_end_session : {
         url  : 'account/end_session.json'
@@ -241,15 +236,15 @@ Bird.get = function(options, callback){
         url  : 'account/settings.json'
       }
     }
-  }
+  };
 
   var createRoute = function(route, verb){
-    var url = routes[verb][route].url
+    var url = routes[verb][route].url;
     return function(options, callback){
       options = options || {};
       options.url = parseUrl(url, options);
       return Bird[verb](options, callback);
-    }
+    };
   };
 
   var parseUrl = function(url, options){
@@ -289,12 +284,14 @@ Bird.get = function(options, callback){
     });
   };
 
+  var wrapCreateRoute = function(route) {
+    Bird[route] = createRoute(route, verb);
+  };
+
   //create routes and add them to the prototype
   for(var verb in routes) {
     if(routes.hasOwnProperty(verb)){
-      Object.keys(routes[verb]).forEach(function(route){
-        Bird[route] = createRoute(route, verb);
-      });
+      Object.keys(routes[verb]).forEach(wrapCreateRoute);
     }
   }
 })();

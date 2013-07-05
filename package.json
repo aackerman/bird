@@ -1,8 +1,8 @@
 {
   "name": "bird",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Aaron Ackerman <theron17@gmail.com>",
-  "description": "Dead Simple Twitter API Wrapper",
+  "description": "Simple Twitter API Wrapper",
   "contributors": [
     {
       "name": "Aaron Ackerman",
@@ -25,5 +25,9 @@
   "license": "MIT",
   "engine": {
     "node": ">=0.6"
+  },
+  "devDependencies": {
+    "express": "~3.3.3",
+    "request": "~2.9.203"
   }
 }
