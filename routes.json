@@ -1,0 +1,175 @@
+{
+  resources: {
+    timelines: {
+      get: {
+        home: 'statuses/home_timeline',
+        mentions: 'statuses/mentions_timeline',
+        user: 'statuses/user_timeline',
+        retweetsOfMe: 'statuses/retweets_of_me'
+      }
+    },
+    tweets: {
+      get: {
+        ofMe: 'statuses/retweeted_of_me',
+        toUser: 'statuses/retweeted_to_user',
+        byUser: 'statuses/retweeted_by_user'
+      }
+    },
+    messages: {
+      method: {
+        get: {
+
+        }
+      }
+    }
+  }
+}
+  get : {
+
+    show : {
+      url  : 'statuses/show'
+    },
+
+    retweet_ids : {
+      url  : 'statuses/retweets/'
+    },
+
+    followers : {
+      url  : 'followers/ids'
+    },
+
+    friends : {
+      url  : 'friends/ids'
+    },
+
+    friendships_exists : {
+      url  : 'friendships/exists'
+    },
+
+    friendships_incomming : {
+      url  : 'friendships/incomming'
+    },
+
+    friendships_outgoing : {
+      url  : 'friendships/outgoing'
+    },
+
+    friendships_show : {
+      url  : 'friendships/show'
+    },
+
+    friendships_lookup : {
+      url  : 'friendships/lookup'
+    },
+
+    friendships_no_retweet_ids : {
+      url  : 'friendships/no_retweet_ids'
+    },
+
+    users_lookup : {
+      url  : 'users/lookup'
+    },
+
+    users_search : {
+      url  : 'users/search'
+    },
+
+    users_show : {
+      url  : 'users/show'
+    },
+
+    users_contributees : {
+      url  : 'users/contributees'
+    },
+
+    users_contributors : {
+      url  : 'users/contributors'
+    },
+
+    favorites : {
+      url  : 'favorites'
+    },
+
+    /* Undocumented APIs */
+    related : {
+      url  : 'related_results/show/'
+    },
+
+    tweet_summary : {
+      url  : ['statuses/', '/activity/summary']
+    }
+  },
+
+  post : {
+    tweet : {
+      url  : 'statuses/update'
+    },
+    delete_tweet : {
+      url  : 'statuses/destroy/'
+    },
+
+    retweet : {
+      url  : 'statuses/retweet/'
+    },
+
+    oembed : {
+      url  : 'statuses/oembed'
+    },
+
+    search : {
+      url  : 'http://search.twitter.com/search'
+    },
+
+    direct_messages_destroy : {
+      url  : 'direct_messages/destroy'
+    },
+
+    direct_messages_new : {
+      url  : 'direct_messages/new'
+    },
+
+    friendships_create : {
+      url  : 'friendships/create'
+    },
+
+    friendships_destroy : {
+      url  : 'friendships/destroy'
+    },
+
+    friendships_update : {
+      url  : 'friendships/update'
+    },
+
+    favorites_create : {
+      url  : 'favorites/create/'
+    },
+
+    favorites_delete : {
+      url  : 'favorites/destroy/'
+    },
+
+    acount_end_session : {
+      url  : 'account/end_session'
+    },
+
+    account_update_profile : {
+      url  : 'account/update_profile'
+    },
+
+    account_update_profile_background_image : {
+      url  : 'account/update_profile_background_image'
+    },
+
+    account_update_profile_colors : {
+      url  : 'account/update_profile_colors'
+    },
+
+    account_update_profile_image : {
+      url  : 'account/update_profile_image'
+    },
+
+    account_update_settings : {
+      url  : 'account/settings'
+    }
+  }
+}
