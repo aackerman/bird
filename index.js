@@ -9,12 +9,45 @@ var Bird = function() {
 };
 
 Bird.prototype.login = function(options) {
-  return;
+  return request.post({
+    url: this.requestTokenPath,
+    options: options.oauth
+  });
 };
 
 Bird.prototype.auth = function(options) {
-  return;
+  request.post({
+    url: this.accessTokenPath,
+    options: options.oauth
+  });
 };
+
+Bird.prototype.timelines = {
+  home: 'statuses/home_timeline.json',
+  mentions: 'statuses/mentions_timeline.json',
+  user: 'statuses/user_timeline.json'
+};
+
+Bird.prototype.retweets = {
+  ofMe: 'statuses/retweeted_of_me.json',
+  toUser: 'statuses/retweeted_to_user.json',
+  byUser: 'statuses/retweeted_by_user.json'
+};
+
+Bird.prototype.directMessages = {
+  base: 'direct_messages.json',
+  sent: 'direct_messages/sent.json',
+  show: 'direct_messages/show.json'
+};
+
+Bird.prototype.account = {
+  rateLimitStatus: 'account/rate_limit_status.json',
+  verifyCredentials: 'account/verify_credentials.json',
+  totals: 'account/totals.json',
+  settings: 'account/settings.json'
+}
+
+
 
 module.exports.Bird = Bird;
 
@@ -24,29 +57,6 @@ module.exports.Bird = Bird;
   var routes = {
 
     get : {
-      home_timeline : {
-        url  : 'statuses/home_timeline.json'
-      },
-
-      mentions : {
-        url  : 'statuses/mentions_timeline.json'
-      },
-
-      retweeted_of_me : {
-        url  : 'statuses/retweeted_of_me.json'
-      },
-
-      user_timeline : {
-        url  : 'statuses/user_timeline.json'
-      },
-
-      retweeted_to_user : {
-        url  : 'statuses/retweeted_to_user.json'
-      },
-
-      retweeted_by_user : {
-        url  : 'statuses/retweeted_by_user.json'
-      },
 
       show : {
         url  : 'statuses/show.json'
@@ -54,18 +64,6 @@ module.exports.Bird = Bird;
 
       retweet_ids : {
         url  : 'statuses/retweets/'
-      },
-
-      direct_messages : {
-        url  : 'direct_messages.json'
-      },
-
-      direct_messages_sent : {
-        url  : 'direct_messages/sent.json'
-      },
-
-      direct_messages_show : {
-        url  : 'direct_messages/show.json'
       },
 
       followers : {
@@ -122,22 +120,6 @@ module.exports.Bird = Bird;
 
       favorites : {
         url  : 'favorites.json'
-      },
-
-      account_rate_limit_status : {
-        url  : 'account/rate_limit_status.json'
-      },
-
-      account_verify_credentials : {
-        url  : 'account/verify_credentials.json'
-      },
-
-      account_totals : {
-        url  : 'account/totals.json'
-      },
-
-      account_get_settings : {
-        url  : 'account/settings.json'
       },
 
       /* Undocumented APIs */
