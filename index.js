@@ -1,39 +1,25 @@
 var request = require('request');
-var qs = require('querystring');
+var qs      = require('querystring');
 
-//constructor
-var Bird = {};
-
-Bird.login = function(oauth, callback){
-  var url = 'https://api.twitter.com/oauth/request_token';
-  request.post({url:url, oauth:oauth}, callback);
+var Bird = function() {
+  this.hostname         = 'api.twitter.com';
+  this.requestTokenPath = this.hostname + '/oauth/request_token';
+  this.accessTokenPath  = this.hostname + '/oauth/access_token';
+  this.apiVersion       = '1.1';
 };
 
-Bird.auth_callback = function(oauth, callback){
-  var url = 'https://api.twitter.com/oauth/access_token';
-  request.post({url:url, oauth:oauth}, callback);
+Bird.prototype.login = function(options) {
+  return;
 };
 
-Bird.post = function(options, callback){
-  if (options.oauth) {
-    return request.post(options, callback);
-  } else {
-    callback({result: 'error', reason: 'missing oauth parameters'});
-  }
+Bird.prototype.auth = function(options) {
+  return;
 };
 
-Bird.get = function(options, callback){
-  if (options.oauth) {
-    return request(options, callback);
-  } else {
-    callback({result: 'error', reason: 'missing oauth parameters'});
-  }
-};
+module.exports.Bird = Bird;
 
 //add other methods to the prototype
 (function(){
-
-  var base_url = 'https://api.twitter.com/1.1/';
 
   var routes = {
 
