@@ -22,17 +22,4 @@ Bird.prototype.auth = function(options) {
   });
 };
 
-Bird.prototype.messages = {
-  base: 'direct_messages.json',
-  sent: 'direct_messages/sent.json',
-  show: 'direct_messages/show.json'
-};
-
-Bird.prototype.account = {
-  rateLimitStatus: 'account/rate_limit_status.json',
-  verifyCredentials: 'account/verify_credentials.json',
-  totals: 'account/totals.json',
-  settings: 'account/settings.json'
-};
-
 module.exports.Bird = Bird;
