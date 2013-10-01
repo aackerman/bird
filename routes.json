@@ -1,26 +1,25 @@
 {
-  resources: {
-    timelines: {
-      get: {
-        home: "statuses/home_timeline",
-        mentions: "statuses/mentions_timeline",
-        user: "statuses/user_timeline",
-        retweetsOfMe: "statuses/retweets_of_me"
-      }
+  "timelines": {
+    "get": {
+      "home": "statuses/home_timeline",
+      "mentions": "statuses/mentions_timeline",
+      "user": "statuses/user_timeline",
+      "retweetsOfMe": "statuses/retweets_of_me"
+    }
+  },
+  "tweets": {
+    "get": {
+      "retweets": "statuses/retweets/:id",
+      "show": "statuses/show/:id",
+      "oembed": "statuses/oembed",
+      "retweeters": "statuses/retweeters/ids"
     },
-    tweets: {
-      get: {
-        retweets: "statuses/retweets/:id",
-        show: "statuses/show/:id",
-        oembed: "statuses/oembed",
-        retweeters: "statuses/retweeters/ids"
-      },
-      post: {
-        update: "statuses/update",
-        destroy: "statuses/destroy/:id",
-        retweet: "statuses/retweet/:id",
-        updateWithMedia: "statuses/update_with_media"
-      }
+    "post": {
+      "update": "statuses/update",
+      "tweet":  "statuses/update",
+      "destroy": "statuses/destroy/:id",
+      "retweet": "statuses/retweet/:id",
+      "updateWithMedia": "statuses/update_with_media"
     }
   }
 }

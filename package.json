@@ -9,17 +9,17 @@
       "email": "theron17@gmail.com"
     }
   ],
-  "main": "./bird",
   "repository": {
     "type": "git",
-    "url": "https://github.com/theron17/bird.git"
+    "url": "https://github.com/aackerman/bird.git"
   },
   "keywords": [
     "twitter",
     "api"
   ],
   "dependencies": {
-    "request": "~2.9.202"
+    "request": "~2.9.202",
+    "lodash": "~2.2.0"
   },
   "noAnalyze": true,
   "license": "MIT",
@@ -27,7 +27,6 @@
     "node": ">=0.6"
   },
   "devDependencies": {
-    "express": "~3.3.3",
     "request": "~2.9.203"
   }
 }
