@@ -18,7 +18,7 @@
   "tweets": {
     "get": {
       "retweets": {
-        "url": "statuses/retweets/:id"
+        "url": "statuses/retweets/:id",
         "interpolate": ":id",
         "validations": {
           "id": {
@@ -50,7 +50,7 @@
         "url": "statuses/update"
       },
       "destroy": {
-        "url": "statuses/destroy/:id"
+        "url": "statuses/destroy/:id",
         "interpolate": ":id",
         "validations": {
           "id": {
