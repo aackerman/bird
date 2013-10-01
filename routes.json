@@ -1,25 +1,69 @@
 {
   "timelines": {
     "get": {
-      "home": "statuses/home_timeline",
-      "mentions": "statuses/mentions_timeline",
-      "user": "statuses/user_timeline",
-      "retweetsOfMe": "statuses/retweets_of_me"
+      "home": {
+        "url": "statuses/home_timeline"
+      },
+      "mentions": {
+        "url": "statuses/mentions_timeline"
+      },
+      "user": {
+        "url": "statuses/user_timeline"
+      },
+      "retweetsOfMe": {
+        "url": "statuses/retweets_of_me"
+      }
     }
   },
   "tweets": {
     "get": {
-      "retweets": "statuses/retweets/:id",
-      "show": "statuses/show/:id",
-      "oembed": "statuses/oembed",
-      "retweeters": "statuses/retweeters/ids"
+      "retweets": {
+        "url": "statuses/retweets/:id"
+        "interpolate": ":id",
+        "validations": {
+          "id": {
+            "presence": true
+          }
+        }
+      },
+      "show": {
+        "url": "statuses/show/:id",
+        "interpolate": ":id",
+        "validations": {
+          "id": {
+            "presence": true
+          }
+        }
+      },
+      "oembed": {
+        "url": "statuses/oembed"
+      },
+      "retweeters": {
+        "url": "statuses/retweeters/ids"
+      }
     },
     "post": {
-      "update": "statuses/update",
-      "tweet":  "statuses/update",
-      "destroy": "statuses/destroy/:id",
-      "retweet": "statuses/retweet/:id",
-      "updateWithMedia": "statuses/update_with_media"
+      "update": {
+        "url": "statuses/update"
+      },
+      "tweet":  {
+        "url": "statuses/update"
+      },
+      "destroy": {
+        "url": "statuses/destroy/:id"
+        "interpolate": ":id",
+        "validations": {
+          "id": {
+            "presence": true
+          }
+        }
+      },
+      "retweet": {
+        "url": "statuses/retweet/:id"
+      },
+      "updateWithMedia": {
+        "url": "statuses/update_with_media"
+      }
     }
   }
 }
