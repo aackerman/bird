@@ -2,7 +2,7 @@ var request = require('request');
 var qs      = require('querystring');
 var _       = require('lodash');
 var routes  = require('./routes.json');
-var isValid = require('./vaidates').isValid;
+var isValid = require('./validates').isValid;
 
 var Bird = function() {
   this.hostname         = 'api.twitter.com';
@@ -11,17 +11,17 @@ var Bird = function() {
   this.apiVersion       = '1.1';
 };
 
-Bird.prototype.login = function(options) {
+Bird.prototype.login = function(oauth) {
   return request.post({
     url: this.requestTokenPath,
-    options: options
+    oauth: oauth
   });
 };
 
-Bird.prototype.auth = function(options) {
+Bird.prototype.auth = function(oauth) {
   return request.post({
     url: this.accessTokenPath,
-    options: options
+    oauth: oauth
   });
 };
 
@@ -46,14 +46,17 @@ _.each(routes, function(methods, resource){
     _.each(routeHash, function(routeOptions, route){
 
       // create methods for each route
-      Bird.prototype[resource][route] = function(){
+      Bird.prototype[resource][route] = function(options){
+        // validate route
         if (routeOptions.validations) {
           isValid(route, routeOptions.validations);
         }
+        // construct the url
         var url = buildUrl(routeOptions.url, options);
+
         return request[httpMethod]({
           url: url,
-          options: options
+          oauth: options.oauth
         });
       };
     });

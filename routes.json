@@ -44,10 +44,20 @@
     },
     "post": {
       "update": {
-        "url": "statuses/update"
+        "url": "statuses/update",
+        "validations": {
+          "status" {
+            "presence": true
+          }
+        }
       },
       "tweet":  {
-        "url": "statuses/update"
+        "url": "statuses/update",
+        "validations": {
+          "status": {
+            "presence": true
+          }
+        }
       },
       "destroy": {
         "url": "statuses/destroy/:id",
@@ -62,7 +72,15 @@
         "url": "statuses/retweet/:id"
       },
       "updateWithMedia": {
-        "url": "statuses/update_with_media"
+        "url": "statuses/update_with_media",
+        "validations": {
+          "status": {
+            "presence": true
+          },
+          "media": {
+            "presence": true
+          }
+        }
       }
     }
   }
