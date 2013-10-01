@@ -5,11 +5,12 @@ var routes     = require('./routes.json');
 var isValid    = require('./validates').isValid;
 var urlBuilder = require('./url-builder');
 
-var Bird = function() {
+var Bird = function(oauth) {
   this.hostname         = 'api.twitter.com';
   this.requestTokenPath = [this.hostname, 'oauth', 'request_token'].join('/');
   this.accessTokenPath  = [this.hostname, 'oauth', 'access_token'].join('/');
   this.apiVersion       = '1.1';
+  this.oauth            = oauth || {};
 };
 
 Bird.prototype.login = function(oauth) {
@@ -43,13 +44,16 @@ _.each(routes, function(methods, resource){
         if (routeOptions.validations) {
           isValid(route, routeOptions.validations);
         }
+
+        // TODO validate ouath presence
+
         // construct the url
         var url = urlBuilder.build(routeOptions.url, options);
 
         return request[httpMethod]({
           url:   url,
           qs:    options.qs,
-          oauth: options.oauth
+          oauth: this.ouath || options.oauth
         });
       };
     });
