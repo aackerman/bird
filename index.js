@@ -1,8 +1,9 @@
-var request = require('request');
-var qs      = require('querystring');
-var _       = require('lodash');
-var routes  = require('./routes.json');
-var isValid = require('./validates').isValid;
+var request    = require('request');
+var qs         = require('querystring');
+var _          = require('lodash');
+var routes     = require('./routes.json');
+var isValid    = require('./validates').isValid;
+var urlBuilder = require('./url-builder');
 
 var Bird = function() {
   this.hostname         = 'api.twitter.com';
@@ -25,15 +26,6 @@ Bird.prototype.auth = function(oauth) {
   });
 };
 
-function buildUrl(url, options) {
-  var newUrl = url;
-  if (options.interpolate) {
-    options.interpolate = options.interpolate.replace(':', '');
-    newUrl = newUrl.replace(options.interpolate, options[options.interpolate]);
-  }
-  return newUrl + '.' + 'json';
-}
-
 // loop through each of the resources
 _.each(routes, function(methods, resource){
   // ensure a namespace for each resource exists
@@ -52,15 +44,33 @@ _.each(routes, function(methods, resource){
           isValid(route, routeOptions.validations);
         }
         // construct the url
-        var url = buildUrl(routeOptions.url, options);
+        var url = urlBuilder.build(routeOptions.url, options);
 
         return request[httpMethod]({
-          url: url,
+          url:   url,
+          qs:    options.qs,
           oauth: options.oauth
         });
       };
     });
   });
 });
+
+// // create a new Bird instance
+// var bird = new Bird();
+
+// // tweet
+// bird.tweets.tweet({
+//   // required parameters should be in the top level of the object
+//   status: 'hello world!',
+//   oauth: { oauthy: 'stuff' },
+//   // optional parameters should be qs sub-object
+//   qs: {
+
+//   }
+// });
+
+// // retrieve a timeline
+// bird.timelines.home();
 
 module.exports.Bird = Bird;
