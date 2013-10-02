@@ -19,21 +19,11 @@
     "get": {
       "retweets": {
         "url": "statuses/retweets/:id",
-        "interpolate": ":id",
-        "validations": {
-          "id": {
-            "presence": true
-          }
-        }
+        "interpolate": "id"
       },
       "show": {
         "url": "statuses/show/:id",
-        "interpolate": ":id",
-        "validations": {
-          "id": {
-            "presence": true
-          }
-        }
+        "interpolate": "id"
       },
       "oembed": {
         "url": "statuses/oembed"
@@ -44,43 +34,21 @@
     },
     "post": {
       "update": {
-        "url": "statuses/update",
-        "validations": {
-          "status" {
-            "presence": true
-          }
-        }
+        "url": "statuses/update"
       },
       "tweet":  {
-        "url": "statuses/update",
-        "validations": {
-          "status": {
-            "presence": true
-          }
-        }
+        "url": "statuses/update"
       },
       "destroy": {
         "url": "statuses/destroy/:id",
-        "interpolate": ":id",
-        "validations": {
-          "id": {
-            "presence": true
-          }
-        }
+        "interpolate": "id"
       },
       "retweet": {
-        "url": "statuses/retweet/:id"
+        "url": "statuses/retweet/:id",
+        "interpolate": "id"
       },
       "updateWithMedia": {
-        "url": "statuses/update_with_media",
-        "validations": {
-          "status": {
-            "presence": true
-          },
-          "media": {
-            "presence": true
-          }
-        }
+        "url": "statuses/update_with_media"
       }
     }
   }

@@ -1,10 +1,14 @@
-function build(url, options) {
-  var newUrl = url;
-  if (options.interpolate) {
-    options.interpolate = options.interpolate.replace(':', '');
-    newUrl = newUrl.replace(options.interpolate, options[options.interpolate]);
+function build(opts, options) {
+  var url = opts.url, val;
+  if (opts && opts.interpolate) {
+    val = options[opts.interpolate];
+    if (val) {
+      url = url.replace(":" + opts.interpolate, options[opts.interpolate]);
+    } else {
+      throw new Error('Missing interpolation value: ' + opts.interpolate + ' in options');
+    }
   }
-  return newUrl + '.' + 'json';
+  return url + '.json';
 }
 
-module.export.build = build;
+module.exports.build = build;
