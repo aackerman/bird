@@ -32,10 +32,10 @@ Bird.prototype.auth = function(oauth) {
 };
 
 Bird.prototype._validate_oauth = function(options){
-  if ( !this.ouath && !(options && options.oauth) ) {
+  if ( !this.ouath && !options.oauth ) {
     throw new Error('You must pass oauth parameters');
   }
-}
+};
 
 Bird.prototype._interpolate_url = function(opts, options) {
   var url = opts.url, val;
@@ -63,6 +63,7 @@ _.each(routes, function(methods, resource){
 
       // create methods for each route
       Bird.prototype[resource][route] = function(options){
+        options = options || {};
         this._validate_oauth(options);
         return request[httpMethod]({
           url:   this._interpolate_url(routeOptions, options),
