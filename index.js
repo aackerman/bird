@@ -12,7 +12,7 @@ var Bird = function(oauth) {
   this.requestTokenPath = [this.hostname, 'oauth', 'request_token'].join('/');
   this.accessTokenPath  = [this.hostname, 'oauth', 'access_token'].join('/');
   this.apiVersion       = '1.1';
-  this.oauth            = oauth || {};
+  this.oauth            = oauth;
 };
 
 Bird.prototype.login = function(oauth) {
@@ -32,7 +32,7 @@ Bird.prototype.auth = function(oauth) {
 };
 
 Bird.prototype._validateOAuth = function(options){
-  if ( !this.ouath && !options.oauth ) {
+  if ( !this.oauth && !options.oauth ) {
     throw new Error('You must pass oauth parameters');
   }
 };
