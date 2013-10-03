@@ -44,7 +44,7 @@ Bird.prototype._interpolate_url = function(opts, options) {
     if (val) {
       url = url.replace(":" + opts.interpolate, options[opts.interpolate]);
     } else {
-      throw new Error('Missing interpolation value: ' + opts.interpolate + ' in options');
+      throw new Error('Missing interpolation value ' + opts.interpolate + ' in options');
     }
   }
   return this.scheme + this.hostname + '/' + this.apiVersion + '/' + url + '.json';
