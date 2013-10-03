@@ -1,7 +1,7 @@
-var request    = require('request');
-var qs         = require('querystring');
-var _          = require('lodash');
-var routes     = require('./routes.json');
+var request   = require('request');
+var qs        = require('querystring');
+var _         = require('lodash');
+var routefile = require('./routes.json');
 
 var Bird = function(oauth) {
   if ( !(this instanceof Bird) ) {
@@ -16,7 +16,7 @@ var Bird = function(oauth) {
 };
 
 Bird.prototype.login = function(oauth) {
-  this._validate_oauth();
+  this._validateOAuth();
   return request.post({
     url: this.requestTokenPath,
     oauth: oauth
@@ -24,20 +24,20 @@ Bird.prototype.login = function(oauth) {
 };
 
 Bird.prototype.auth = function(oauth) {
-  this._validate_oauth();
+  this._validateOAuth();
   return request.post({
     url: this.accessTokenPath,
     oauth: oauth
   });
 };
 
-Bird.prototype._validate_oauth = function(options){
+Bird.prototype._validateOAuth = function(options){
   if ( !this.ouath && !options.oauth ) {
     throw new Error('You must pass oauth parameters');
   }
 };
 
-Bird.prototype._interpolate_url = function(opts, options) {
+Bird.prototype._interpolate = function(opts, options) {
   var url = opts.url, val;
   if (opts && opts.interpolate) {
     val = options[opts.interpolate];
@@ -51,25 +51,25 @@ Bird.prototype._interpolate_url = function(opts, options) {
 };
 
 // loop through each of the resources
-_.each(routes, function(methods, resource){
+_.each(routefile, function(methods, resource){
   // ensure a namespace for each resource exists
   Bird.prototype[resource] = Bird.prototype[resource] || {};
 
   // loop through each method in the resources
-  _.each(methods, function(routeHash, httpMethod){
+  _.each(methods, function(routes, method){
 
     // loop through the routes and add each route to the Bird prototype
-    _.each(routeHash, function(routeOptions, route){
+    _.each(routes, function(routeopts, route){
 
       // create methods for each route
-      Bird.prototype[resource][route] = function(options){
-        options = options || {};
-        this._validate_oauth(options);
-        return request[httpMethod]({
-          url:   this._interpolate_url(routeOptions, options),
-          qs:    options.qs,
-          oauth: this.ouath || options.oauth
-        });
+      Bird.prototype[resource][route] = function(useropts, callback){
+        useropts = useropts || {};
+        this._validateOAuth(useropts);
+        return request[method]({
+          url:   this._interpolate(routeopts, useropts),
+          qs:    useropts.qs,
+          oauth: this.oauth || useropts.oauth
+        }, callback);
       };
     });
   });
