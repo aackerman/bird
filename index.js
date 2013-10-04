@@ -9,26 +9,27 @@ var Bird = function(oauth) {
   }
   this.scheme           = 'https://';
   this.hostname         = 'api.twitter.com';
-  this.requestTokenPath = [this.hostname, 'oauth', 'request_token'].join('/');
-  this.accessTokenPath  = [this.hostname, 'oauth', 'access_token'].join('/');
+  this.requestTokenPath = this.scheme + [this.hostname, 'oauth', 'request_token'].join('/');
+  this.accessTokenPath  = this.scheme + [this.hostname, 'oauth', 'access_token'].join('/');
   this.apiVersion       = '1.1';
   this.oauth            = oauth;
 };
 
-Bird.prototype.login = function(oauth) {
-  this._validateOAuth();
+Bird.prototype.login = function(oauth, callback) {
+  this._validateOAuth({ oauth: oauth });
   return request.post({
     url: this.requestTokenPath,
-    oauth: oauth
-  });
+    oauth: this.oauth || oauth,
+    json: true
+  }, callback);
 };
 
-Bird.prototype.auth = function(oauth) {
-  this._validateOAuth();
+Bird.prototype.auth = function(oauth, callback) {
+  this._validateOAuth({ oauth: oauth });
   return request.post({
     url: this.accessTokenPath,
     oauth: oauth
-  });
+  }, callback);
 };
 
 Bird.prototype._validateOAuth = function(options){
@@ -62,7 +63,7 @@ _.each(routefile, function(methods, resource){
     _.each(routes, function(routeopts, route){
 
       // create methods for each route
-      Bird.prototype[resource][route] = function(useropts, callback){
+      Bird.prototype[route] = function(useropts, callback){
         useropts = useropts || {};
         this._validateOAuth(useropts);
         return request[method]({

@@ -18,7 +18,7 @@
     "api"
   ],
   "dependencies": {
-    "request": "~2.9.202",
+    "request": "~2.27.0",
     "lodash": "~2.2.0"
   },
   "noAnalyze": true,
@@ -27,7 +27,6 @@
     "node": ">=0.6"
   },
   "devDependencies": {
-    "request": "~2.9.203",
     "mocha": "~1.13.0",
     "chai": "~1.8.0"
   }
