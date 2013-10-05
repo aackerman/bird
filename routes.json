@@ -213,5 +213,20 @@
         "url": "users/suggestions/:slug/members"
       }
     }
+  },
+  "favorites": {
+    "get": {
+      "list": {
+        "url": "favorites/list"
+      }
+    },
+    "post": {
+      "create": {
+        "url": "favorites/create"
+      },
+      "destroy": {
+        "url": "favorites/destroy"
+      }
+    }
   }
 }
