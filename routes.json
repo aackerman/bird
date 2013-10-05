@@ -58,5 +58,26 @@
         "url": "search/tweets"
       }
     }
+  },
+  "messages": {
+    "get": {
+      "index": {
+        "url": "direct_messages"
+      },
+      "sent": {
+        "url": "direct_messages/sent"
+      },
+      "show": {
+        "url": "direct_messages/show"
+      }
+    },
+    "post": {
+      "destroy": {
+        "url": "direct_messages/destroy"
+      },
+      "new": {
+        "url": "direct_messages/new"
+      }
+    }
   }
 }
