@@ -298,8 +298,26 @@
     }
   },
   "spam": {
-    "report": {
-      "url": "users/report_spam"
+    "post": {
+      "report": {
+        "url": "users/report_spam"
+      }
+    }
+  },
+  "help": {
+    "get": {
+      "configuration": {
+        "url": "help/configuration"
+      },
+      "languages": {
+        "url": "help/languages"
+      },
+      "privacy": {
+        "url": "help/privacy"
+      },
+      "tos": {
+        "url": "help/tos"
+      }
     }
   }
 }
