@@ -40,3 +40,102 @@ Bird.timelines.home({ oauth: oauth }, function(err, r, body){
   // the body will be an array of tweets
 });
 ```
+
+## Routes
+
+```
+❯ node
+> require('./index')
+{ auth:
+   { requestToken: ...,
+     accessToken: ... },
+  timelines:
+   { home: ...,
+     mentions: ...,
+     user: ...,
+     retweetsOfMe: ... },
+  tweets:
+   { retweets: ...,
+     show: ...,
+     oembed: ...,
+     retweeters: ...,
+     update: ...,
+     tweet: ...,
+     destroy: ...,
+     retweet: ...,
+     updateWithMedia: ... },
+  search: { tweets: ... },
+  messages:
+   { index: ...,
+     sent: ...,
+     show: ...,
+     destroy: ...,
+     new: ... },
+  friends: { index: ..., list: ... },
+  friendships:
+   { noRetweets: ...,
+     show: ...,
+     lookup: ...,
+     incoming: ...,
+     outgoing: ...,
+     create: ...,
+     destroy: ...,
+     update: ... },
+  followers: { index: ..., list: ... },
+  account:
+   { settings: ...,
+     verify: ...,
+     banner: ...,
+     updateSettings: ...,
+     updateDeliveryDevice: ...,
+     updateProfile: ...,
+     updateProfileBackgroundImage: ...,
+     updateProfileColors: ...,
+     updateProfileImage: ...,
+     removeProfileBanner: ...,
+     updateProfileBanner: ... },
+  blocks:
+   { list: ...,
+     index: ...,
+     create: ...,
+     destroy: ... },
+  users:
+   { lookup: ...,
+     show: ...,
+     search: ...,
+     contributees: ...,
+     contributors: ...,
+     suggestionsWithSlug: ...,
+     suggestionsWithSlugMembers: ... },
+  favorites:
+   { list: ...,
+     create: ...,
+     destroy: ... },
+  lists:
+   { list: ...,
+     statuses: ...,
+     memberships: ...,
+     subscribers: ...,
+     showSubscribers: ...,
+     removeMember: ...,
+     createMember: ...,
+     removeSubscriber: ...,
+     createSubscriber: ... },
+  geo:
+   { place: ...,
+     geocode: ...,
+     search: ...,
+     similarPlaces: ...,
+     createPlace: ... },
+  trends:
+   { place: ...,
+     available: ...,
+     closest: ... },
+  spam: { report: ... },
+  help:
+   { configuration: ...,
+     languages: ...,
+     privacy: ...,
+     tos: ... },
+  application: { rateLimits: ... } }
+```
