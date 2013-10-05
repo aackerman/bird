@@ -30,21 +30,23 @@ var _interpolate = function(opts, options) {
 }
 
 var Bird = {
-  login: function(opts, callback) {
-    this._validateOAuth(opts);
-    return request.post({
-      url: REQUEST_TOKEN_PATH,
-      oauth: opts.oauth,
-      json: true
-    }, callback);
-  },
-  auth: function(opts, callback) {
-    this._validateOAuth(opts);
-    return request.post({
-      url: ACCESS_TOKEN_PATH,
-      oauth: opts.oauth,
-      json: true
-    }, callback);
+  auth: {
+    requestToken: function(opts, callback) {
+      this._validateOAuth(opts);
+      return request.post({
+        url: REQUEST_TOKEN_PATH,
+        oauth: opts.oauth,
+        json: true
+      }, callback);
+    },
+    accessToken: function(opts, callback) {
+      this._validateOAuth(opts);
+      return request.post({
+        url: ACCESS_TOKEN_PATH,
+        oauth: opts.oauth,
+        json: true
+      }, callback);
+    }
   }
 };
 
