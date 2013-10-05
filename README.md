@@ -4,7 +4,7 @@
 
 Bird methods match up to twitter resources.
 
-```
+```js
 Bird.auth.requestToken({
   oauth: {
     consumer_key: 'XXXXXXXXXXXXXXXXXXXXX',
@@ -19,7 +19,7 @@ Bird.auth.requestToken({
 
 If the users authorizes your application, Twitter will make a `GET` request to your Twitter application callback URL. The request query string will contain an `oauth_verifier`. Then you can request a permanent access token to handle requests to the Twitter API on behalf of the user.
 
-```
+```js
 Bird.auth.accessToken({
   oauth: {
     consumer_key: 'XXXXXXXXXXXXXXXXXXXXX',
