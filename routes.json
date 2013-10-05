@@ -209,7 +209,7 @@
         "url": "users/suggestions/:slug"
       },
       "suggestionsWithSlugMembers": {
-        "needs": "slug"
+        "needs": "slug",
         "url": "users/suggestions/:slug/members"
       }
     }
@@ -259,6 +259,28 @@
       },
       "createSubscriber": {
         "url": "lists/subscribers/create"
+      }
+    }
+  },
+  "geo": {
+    "get": {
+      "place": {
+        "needs": "place_id",
+        "url": "geo/id/:place_id"
+      },
+      "geocode": {
+        "url": "geo/reverse_geocode"
+      },
+      "search": {
+        "url": "geo/search"
+      },
+      "similarPlaces": {
+        "url": "geo/similar_places"
+      }
+    },
+    "post": {
+      "createPlace": {
+        "url": "geo/place"
       }
     }
   }
