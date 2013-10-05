@@ -34,3 +34,9 @@ Bird.auth.accessToken({
 ```
 
 If you have the oauth token and token secret for a user you are ready to handle requests to Twitter on their behalf.
+
+```js
+Bird.timelines.home({ oauth: oauth }, function(err, r, body){
+  // the body will be an array of tweets
+});
+```
