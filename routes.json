@@ -228,5 +228,38 @@
         "url": "favorites/destroy"
       }
     }
+  },
+  "lists": {
+    "get": {
+      "list": {
+        "url": "lists/list"
+      },
+      "statuses": {
+        "url": "lists/statuses"
+      },
+      "memberships": {
+        "url": "lists/memberships"
+      },
+      "subscribers": {
+        "url": "lists/subscribers"
+      },
+      "showSubscribers": {
+        "url": "lists/subscribers/show"
+      }
+    },
+    "post": {
+      "removeMember": {
+        "url": "lists/memberships/destroy"
+      },
+      "createMember": {
+        "url": "lists/memberships/create"
+      },
+      "removeSubscriber": {
+        "url": "lists/subscribers/destroy"
+      },
+      "createSubscriber": {
+        "url": "lists/subscribers/create"
+      }
+    }
   }
 }
