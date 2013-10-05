@@ -79,5 +79,55 @@
         "url": "direct_messages/new"
       }
     }
+  },
+  "friends": {
+    "get": {
+      "index": {
+        "url": "friends/ids"
+      },
+      "list": {
+        "url": "friends/list"
+      }
+    }
+  },
+  "friendships": {
+    "get": {
+      "noRetweets": {
+        "url": "friendships/no_retweets/ids"
+      },
+      "show": {
+        "url": "friendships/show"
+      },
+      "lookup": {
+        "url": "friendships/lookup"
+      },
+      "incoming": {
+        "url": "friendships/incoming"
+      },
+      "outgoing": {
+        "url": "friendships/outgoing"
+      }
+    },
+    "post": {
+      "create": {
+        "url": "friendships/create"
+      },
+      "destroy": {
+        "url": "friendships/destroy"
+      },
+      "update": {
+        "url": "friendships/update"
+      }
+    }
+  },
+  "followers": {
+    "get": {
+      "index": {
+        "url": "followers/ids"
+      },
+      "list": {
+        "url": "followers/list"
+      }
+    }
   }
 }
