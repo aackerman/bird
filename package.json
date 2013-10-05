@@ -24,7 +24,7 @@
   "noAnalyze": true,
   "license": "MIT",
   "engine": {
-    "node": ">=0.6"
+    "node": ">=0.10"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
