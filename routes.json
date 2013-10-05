@@ -19,11 +19,11 @@
     "get": {
       "retweets": {
         "url": "statuses/retweets/:id",
-        "interpolate": "id"
+        "needs": "id"
       },
       "show": {
         "url": "statuses/show/:id",
-        "interpolate": "id"
+        "needs": "id"
       },
       "oembed": {
         "url": "statuses/oembed"
@@ -41,11 +41,11 @@
       },
       "destroy": {
         "url": "statuses/destroy/:id",
-        "interpolate": "id"
+        "needs": "id"
       },
       "retweet": {
         "url": "statuses/retweet/:id",
-        "interpolate": "id"
+        "needs": "id"
       },
       "updateWithMedia": {
         "url": "statuses/update_with_media"

@@ -18,12 +18,12 @@ var _validateOAuth = function(options){
 
 var _interpolate = function(opts, options) {
   var url = opts.url, val;
-  if (opts && opts.interpolate) {
-    val = options[opts.interpolate];
+  if (opts && opts.needs) {
+    val = options[opts.needs];
     if (val) {
-      url = url.replace(":" + opts.interpolate, options[opts.interpolate]);
+      url = url.replace(":" + opts.needs, options[opts.needs]);
     } else {
-      throw new Error('Missing interpolation value ' + opts.interpolate + ' in options');
+      throw new Error('Missing interpolation value ' + opts.needs + ' in options');
     }
   }
   return SCHEME + HOSTNAME + '/' + API_VERSION + '/' + url + '.json';
