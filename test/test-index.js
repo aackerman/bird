@@ -8,8 +8,12 @@ describe("Bird", function(){
     it("returns a valid json response", function(done){
       Bird.timelines.home({ oauth: oauth }, function(err, r, b){
         expect(r.statusCode).to.eq(200);
-        done()
+        done();
       })
+    });
+
+    it("throws an error when not given oauth parameters", function(){
+      expect(Bird.timelines.home).to.throw(Error);
     });
   });
 });
