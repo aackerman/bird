@@ -129,5 +129,53 @@
         "url": "followers/list"
       }
     }
+  },
+  "account": {
+    "get": {
+      "settings": {
+        "url": "account/settings"
+      },
+      "verify": {
+        "url": "account/verify_credentials"
+      }
+    },
+    "post": {
+      "updateSettings": {
+        "url": "account/settings"
+      },
+      "updateDeliveryDevice": {
+        "url": "account/update_delivery_device"
+      },
+      "updateProfile": {
+        "url": "account/update_profile"
+      },
+      "updateProfileBackgroundImage": {
+        "url": "account/update_profile_background_image"
+      },
+      "updateProfileColors": {
+        "url": "account/update_profile_colors"
+      },
+      "updateProfileImage": {
+        "url": "account/update_profile_image"
+      }
+    }
+  },
+  "blocks": {
+    "get": {
+      "list": {
+        "url": "blocks/list"
+      },
+      "index": {
+        "url": "blocks/ids"
+      }
+    },
+    "post": {
+      "create": {
+        "url": "blocks/create"
+      },
+      "destroy": {
+        "url": "blocks/destroy"
+      }
+    }
   }
 }
