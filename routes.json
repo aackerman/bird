@@ -137,6 +137,9 @@
       },
       "verify": {
         "url": "account/verify_credentials"
+      },
+      "banner": {
+        "url": "account/profile_banner"
       }
     },
     "post": {
@@ -157,6 +160,12 @@
       },
       "updateProfileImage": {
         "url": "account/update_profile_image"
+      },
+      "removeProfileBanner": {
+        "url": "account/remove_profile_banner"
+      },
+      "updateProfileBanner": {
+        "url": "account/update_profile_banner"
       }
     }
   },
@@ -175,6 +184,33 @@
       },
       "destroy": {
         "url": "blocks/destroy"
+      }
+    }
+  },
+  "users": {
+    "get": {
+      "lookup": {
+        "url": "users/lookup"
+      },
+      "show": {
+        "url": "users/show"
+      },
+      "search": {
+        "url": "users/search"
+      },
+      "contributees": {
+        "url": "users/contributees"
+      },
+      "contributors": {
+        "url": "users/contributors"
+      },
+      "suggestionsWithSlug": {
+        "needs": "slug",
+        "url": "users/suggestions/:slug"
+      },
+      "suggestionsWithSlugMembers": {
+        "needs": "slug"
+        "url": "users/suggestions/:slug/members"
       }
     }
   }
