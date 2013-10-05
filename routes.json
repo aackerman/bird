@@ -296,5 +296,10 @@
         "url": "trends/closest"
       }
     }
+  },
+  "spam": {
+    "report": {
+      "url": "users/report_spam"
+    }
   }
 }
