@@ -283,5 +283,18 @@
         "url": "geo/place"
       }
     }
+  },
+  "trends": {
+    "get": {
+      "place": {
+        "url": "trends/place"
+      },
+      "available": {
+        "url": "trends/available"
+      },
+      "closest": {
+        "url": "trends/closest"
+      }
+    }
   }
 }
