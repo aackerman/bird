@@ -41,6 +41,19 @@ Bird.timelines.home({ oauth: oauth }, function(err, r, body){
 });
 ```
 
+## Streams
+
+Bird is just a wrapper around [request](https://github.com/mikeal/request). And request returns a stream and also handle the standard Node callback interface. So Bird does this just as well.
+
+Imagine an express route that returns a users home timeline as json. You can simply pipe the call to the response.
+
+```
+app.get('timeline', function(req, res){
+  // assuming you have the users oauth credentials
+  Bird.timelines.home({ oauth: oauth }).pipe(res)
+});
+```
+
 ## Routes
 
 ```
