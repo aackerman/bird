@@ -47,7 +47,7 @@ Bird is just a wrapper around [request](https://github.com/mikeal/request). And 
 
 Imagine an express route that returns a users home timeline as json. You can simply pipe the call to the response.
 
-```
+```js
 app.get('timeline', function(req, res){
   // assuming you have the users oauth credentials
   Bird.timelines.home({ oauth: oauth }).pipe(res)
