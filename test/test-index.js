@@ -1,6 +1,11 @@
 var Bird   = require('../index');
 var expect = require('chai').expect;
-var oauth  = require('../oauth.json');
+var oauth  = {
+  "consumer_key": process.env.TW_CONSUMER_KEY,
+  "consumer_secret": process.env.TW_CONSUMER_SECRET,
+  "token": process.env.TW_TOKEN,
+  "token_secret": process.env.TW_TOKEN_SECRET
+};
 
 describe("Bird", function(){
 
