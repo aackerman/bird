@@ -1,4 +1,5 @@
 ## Bird :bird:
+[![Build Status](https://travis-ci.org/aackerman/bird.png?branch=master)](https://travis-ci.org/aackerman/bird)
 
 ### Simple wrapper around [request](https://github.com/mikeal/request) to consume the Twitter API
 
