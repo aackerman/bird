@@ -17,6 +17,9 @@
     "twitter",
     "api"
   ],
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
   "dependencies": {
     "request": "~2.27.0",
     "lodash": "~2.2.0"
