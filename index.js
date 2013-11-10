@@ -51,18 +51,18 @@ var Bird = {
 };
 
 // loop through each of the resources
-_.each(routefile, function(methods, resource){
-  // ensure a namespace for each resource exists
-  Bird[resource] = Bird[resource] || {};
+_.each(routefile, function(methods, namespace){
+  // ensure a namespace for each namespace exists
+  Bird[namespace] = Bird[namespace] || {};
 
-  // loop through each method in the resources
+  // loop through each method in the namespaces
   _.each(methods, function(routes, method){
 
-    // loop through the routes and add each route to the Bird prototype
+    // loop through the routes and add each route to the Bird namespace
     _.each(routes, function(routeopts, route){
 
       // create methods for each route
-      Bird[resource][route] = function(useropts, callback){
+      Bird[namespace][route] = function(useropts, callback){
         useropts = useropts || {};
         _validateOAuth(useropts);
         return request[method]({
