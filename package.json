@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "request": "~2.34.0",
-    "lodash": "~2.2.0"
+    "lodash": "~2.4.1"
   },
   "noAnalyze": true,
   "license": "MIT",
