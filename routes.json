@@ -34,7 +34,8 @@
     },
     "post": {
       "update": {
-        "url": "statuses/update"
+        "url": "statuses/update",
+        "needs": "status"
       },
       "tweet":  {
         "url": "statuses/update"
