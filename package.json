@@ -1,6 +1,6 @@
 {
   "name": "bird",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "Aaron Ackerman <theron17@gmail.com>",
   "description": "Simple Twitter API Wrapper",
   "contributors": [

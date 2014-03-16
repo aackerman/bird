@@ -1,5 +1,4 @@
 var request   = require('request');
-var qs        = require('querystring');
 var _         = require('lodash');
 var routefile = require('./routes.json');
 
@@ -65,10 +64,12 @@ _.each(routefile, function(methods, namespace){
       Bird[namespace][route] = function(useropts, callback){
         useropts = useropts || {};
         _validateOAuth(useropts);
+        var oauth = useropts.oauth;
+        delete useropts.oauth
         return request[method]({
           url:   _interpolate(routeopts, useropts),
-          qs:    useropts.qs,
-          oauth: useropts.oauth
+          qs:    useropts,
+          oauth: oauth
         }, callback);
       };
     });
