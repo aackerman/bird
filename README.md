@@ -54,7 +54,7 @@ app.get('timeline', function(req, res){
 });
 ```
 
-## MEDIA
+## Media
 
 Uploading media [is a 2-part process](https://dev.twitter.com/rest/public/uploading-media-multiple-photos).  
 
