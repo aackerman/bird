@@ -68,16 +68,16 @@ _.each(routefile, function(methods, namespace){
         _validateOAuth(useropts);
         var oauth = useropts.oauth;
         delete useropts.oauth
-        var request_options = {
+        var requestOptions = {
           url:   _interpolate(routeopts, useropts),
           qs:    useropts,
           oauth: oauth
         };
-        if (request_options.qs.media) {
-          request_options.formData = { "media": fs.createReadStream(request_options.qs.media) };
-          delete request_options.qs;
+        if (requestOptions.qs.media) {
+          requestOptions.formData = { "media": fs.createReadStream(requestOptions.qs.media) };
+          delete requestOptions.qs;
         }
-        return request[method](request_options, callback);
+        return request[method](requestOptions, callback);
       };
     });
   });
