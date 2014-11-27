@@ -54,6 +54,45 @@ app.get('timeline', function(req, res){
 });
 ```
 
+## Media
+
+Uploading media [is a 2-part process](https://dev.twitter.com/rest/public/uploading-media-multiple-photos).  
+
+```js
+var options = { 
+  oauth:  { 
+    consumer_key: 'XXXXXXXXXXXXXXXXXX',
+    consumer_secret: 'XXXXXXXXXXXXXXX',
+    callback: 'XXXXXXXXXXXXXXXXXX',
+    token: 'XXXXXXXXXXXXXXXXXX',
+    token_secret: 'XXXXXXXXXXXXXXXXX' 
+  }
+}
+options.media = '/path/to/filename';
+bird.media.upload(options, function(err, httpResponse, body) {
+  if (err) throw err; 
+
+  var options = { 
+    oauth:  { 
+      consumer_key: 'XXXXXXXXXXXXXXXXXX',
+      consumer_secret: 'XXXXXXXXXXXXXXX',
+      callback: 'XXXXXXXXXXXXXXXXXX',
+      token: 'XXXXXXXXXXXXXXXXXX',
+      token_secret: 'XXXXXXXXXXXXXXXXX' 
+    }
+  }
+  options.status = "hello world";
+  options.media_ids = JSON.parse(body).media_id_string; 
+  bird.tweets.tweet(options, function(err, r, body){
+    if (err) throw err;
+    console.log('successfully tweeted media');
+  });
+});
+```
+
+
+
+
 ## Routes
 
 ```

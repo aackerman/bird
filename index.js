@@ -1,10 +1,12 @@
 var request   = require('request');
 var _         = require('lodash');
 var routefile = require('./routes.json');
+var fs        = require('fs');
 
 
 var SCHEME = 'https://';
 var HOSTNAME = 'api.twitter.com';
+var MEDIA_HOSTNAME = 'upload.twitter.com';
 var API_VERSION = '1.1';
 var REQUEST_TOKEN_PATH = SCHEME + [HOSTNAME, 'oauth', 'request_token'].join('/');
 var ACCESS_TOKEN_PATH = SCHEME + [HOSTNAME, 'oauth', 'access_token'].join('/');
@@ -25,7 +27,7 @@ var _interpolate = function(opts, options) {
       throw new Error('Missing interpolation value ' + opts.needs + ' in options');
     }
   }
-  return SCHEME + HOSTNAME + '/' + API_VERSION + '/' + url + '.json';
+  return SCHEME + ((opts.url == "media\/upload") ? MEDIA_HOSTNAME : HOSTNAME) + '/' + API_VERSION + '/' + url + '.json';
 }
 
 var Bird = {
@@ -66,11 +68,16 @@ _.each(routefile, function(methods, namespace){
         _validateOAuth(useropts);
         var oauth = useropts.oauth;
         delete useropts.oauth
-        return request[method]({
+        var requestOptions = {
           url:   _interpolate(routeopts, useropts),
           qs:    useropts,
           oauth: oauth
-        }, callback);
+        };
+        if (requestOptions.qs.media) {
+          requestOptions.formData = { "media": fs.createReadStream(requestOptions.qs.media) };
+          delete requestOptions.qs;
+        }
+        return request[method](requestOptions, callback);
       };
     });
   });

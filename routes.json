@@ -327,5 +327,12 @@
         "url": "application/rate_limit_status"
       }
     }
+  },
+  "media": {
+    "post": {
+      "upload": {
+        "url": "media/upload"
+      }
+    }
   }
 }
