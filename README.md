@@ -1,89 +1,51 @@
 # Bird [![Build Status](https://travis-ci.org/aackerman/bird.png?branch=master)](https://travis-ci.org/aackerman/bird)
 
-### Simple wrapper around [request](https://github.com/mikeal/request) to consume the Twitter API
+### A wrapper around [request](https://github.com/mikeal/request) to consume the Twitter API
 
-Bird methods match up to twitter resources.
+### Examples
 
-```js
-Bird.auth.requestToken({
-  oauth: {
-    consumer_key: 'XXXXXXXXXXXXXXXXXXXXX',
-    consumer_secret: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-  }
-}, function(err, response, body){
-  var token = qs.parse(body);
-  // save the users token for later use
-  // redirect user to https://api.twitter.com/oauth/authorize?oauth_token= + token.oauth_token
-});
-```
+A repo with examples can be viewed [here](https://github.com/aackerman/bird-example-app).
 
-If the users authorizes your application, Twitter will make a `GET` request to your Twitter application callback URL. The request query string will contain an `oauth_verifier`. Then you can request a permanent access token to handle requests to the Twitter API on behalf of the user.
-
-```js
-Bird.auth.accessToken({
-  oauth: {
-    consumer_key: 'XXXXXXXXXXXXXXXXXXXXX',
-    consumer_secret: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    token: 'XXXXXXXXXXXXX' // the users OAuth token from `requestToken`
-    verifier: 'XXXXXXXXXXXXX' // the verifier sent to your Twitter application callback route
-  }
-}, function(err, response, body){
-  var token = qs.parse(body)
-  // save the users `token.oauth_token` and `token.oauth_token_secret` here
-})
-```
-
-If you have the oauth token and token secret for a user you are ready to handle requests to Twitter on their behalf.
-
-```js
-Bird.timelines.home({ oauth: oauth }, function(err, r, body){
-  // the body will be an array of tweets
-});
-```
-
-## Streams
+### Streams
 
 Bird is just a wrapper around [request](https://github.com/mikeal/request). And [request](https://github.com/mikeal/request) offers a stream interface and the standard Node callback interface. So Bird does this just as well.
 
 Imagine an express route that returns a users home timeline as json. You can simply pipe the call to the response.
 
 ```js
-app.get('timeline', function(req, res){
-  // assuming you have the users oauth credentials
-  Bird.timelines.home({ oauth: oauth }).pipe(res)
-});
+// assuming you have the users oauth credentials
+Bird.timelines.home({ oauth: oauth }).pipe(res)
 ```
 
-## Media
+### Media
 
-Uploading media [is a 2-part process](https://dev.twitter.com/rest/public/uploading-media-multiple-photos).  
+Uploading media [is a 2-part process](https://dev.twitter.com/rest/public/uploading-media-multiple-photos).
 
 ```js
-var options = { 
-  oauth:  { 
+var options = {
+  oauth:  {
     consumer_key: 'XXXXXXXXXXXXXXXXXX',
     consumer_secret: 'XXXXXXXXXXXXXXX',
-    callback: 'XXXXXXXXXXXXXXXXXX',
     token: 'XXXXXXXXXXXXXXXXXX',
-    token_secret: 'XXXXXXXXXXXXXXXXX' 
-  }
+    token_secret: 'XXXXXXXXXXXXXXXXX'
+  },
+  media: 'path/to/filename'
 }
-options.media = '/path/to/filename';
-bird.media.upload(options, function(err, httpResponse, body) {
-  if (err) throw err; 
 
-  var options = { 
-    oauth:  { 
+Bird.media.upload(options, function(err, httpResponse, body) {
+  if (err) throw err;
+
+  var options = {
+    oauth:  {
       consumer_key: 'XXXXXXXXXXXXXXXXXX',
       consumer_secret: 'XXXXXXXXXXXXXXX',
-      callback: 'XXXXXXXXXXXXXXXXXX',
       token: 'XXXXXXXXXXXXXXXXXX',
-      token_secret: 'XXXXXXXXXXXXXXXXX' 
-    }
+      token_secret: 'XXXXXXXXXXXXXXXXX'
+    },
+    status: 'hello world',
+    media_ids: JSON.parse(body).media_id_string
   }
-  options.status = "hello world";
-  options.media_ids = JSON.parse(body).media_id_string; 
-  bird.tweets.tweet(options, function(err, r, body){
+  Bird.tweets.tweet(options, function(err, r, body){
     if (err) throw err;
     console.log('successfully tweeted media');
   });
