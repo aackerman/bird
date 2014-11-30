@@ -3,7 +3,6 @@ var _         = require('lodash');
 var routefile = require('./routes.json');
 var fs        = require('fs');
 
-
 var SCHEME = 'https://';
 var HOSTNAME = 'api.twitter.com';
 var MEDIA_HOSTNAME = 'upload.twitter.com';
@@ -33,7 +32,7 @@ var _interpolate = function(opts, options) {
 var Bird = {
   auth: {
     requestToken: function(opts, callback) {
-      this._validateOAuth(opts);
+      _validateOAuth(opts);
       return request.post({
         url: REQUEST_TOKEN_PATH,
         oauth: opts.oauth,
@@ -41,7 +40,7 @@ var Bird = {
       }, callback);
     },
     accessToken: function(opts, callback) {
-      this._validateOAuth(opts);
+      _validateOAuth(opts);
       return request.post({
         url: ACCESS_TOKEN_PATH,
         oauth: opts.oauth,
