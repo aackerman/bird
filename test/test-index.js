@@ -24,16 +24,61 @@ describe("Bird", function(){
     });
   });
 
-  describe("timelines.home", function(){
-    it("returns a valid json response", function(done){
-      Bird.timelines.home({ oauth: oauth }, function(err, r, b){
-        expect(r.statusCode).to.eq(200);
-        done();
-      })
+  describe('Bird.timelines', function(){
+    it('is a namespace for each of the twitter timeline routes', function() {
+      expect(Bird.timelines).to.be.an('object');
     });
 
-    it("throws an error when not given oauth parameters", function(){
-      expect(Bird.timelines.home).to.throw(Error);
+    describe("Bird.timelines.home", function(){
+      it("returns a valid json response", function(done){
+        Bird.timelines.home({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        })
+      });
+
+      it("throws an error when not given oauth parameters", function(){
+        expect(Bird.timelines.home).to.throw(Error);
+      });
+    });
+
+    describe("Bird.timelines.mentions", function(){
+      it("returns a valid json response", function(done){
+        Bird.timelines.mentions({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        })
+      });
+
+      it("throws an error when not given oauth parameters", function(){
+        expect(Bird.timelines.mentions).to.throw(Error);
+      });
+    });
+
+    describe("Bird.timelines.user", function(){
+      it("returns a valid json response", function(done){
+        Bird.timelines.user({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        })
+      });
+
+      it("throws an error when not given oauth parameters", function(){
+        expect(Bird.timelines.user).to.throw(Error);
+      });
+    });
+
+    describe("Bird.timelines.retweetsOfMe", function(){
+      it("returns a valid json response", function(done){
+        Bird.timelines.retweetsOfMe({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        })
+      });
+
+      it("throws an error when not given oauth parameters", function(){
+        expect(Bird.timelines.retweetsOfMe).to.throw(Error);
+      });
     });
   });
 
