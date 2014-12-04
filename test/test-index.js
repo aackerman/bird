@@ -82,12 +82,44 @@ describe("Bird", function(){
     });
   });
 
-  describe("tweets.show", function(){
-    it("throws an error when not given an id parameter", function(){
-      var fn = function(){
-        Bird.tweets.show({ oauth: oauth });
-      }
-      expect(fn).to.throw(Error);
+  describe('Bird.tweets', function(){
+    it('is a namespace for each of the twitter tweets routes', function() {
+      expect(Bird.tweets).to.be.an('object');
+    });
+
+    describe('Bird.tweets.retweets', function(){
+      it("throws an error when not given an id parameter", function(){
+        var fn = function(){
+          Bird.tweets.show({ oauth: oauth });
+        }
+        expect(fn).to.throw(Error);
+      });
+    });
+
+    describe('Bird.tweets.update', function(){
+      it('sends new tweets', function(done){
+        Bird.tweets.update({ oauth: oauth, status: 'Bird.tweets.update ' + Date.now() }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        })
+      });
+
+      it("throws an error when not given an status parameter", function(){
+        var fn = function(){
+          Bird.tweets.update({ oauth: oauth });
+        }
+        expect(fn).to.throw(Error);
+      });
+    });
+
+    describe("Bird.tweets.show", function(){
+      it("throws an error when not given an id parameter", function(){
+        var fn = function(){
+          Bird.tweets.show({ oauth: oauth });
+        }
+        expect(fn).to.throw(Error);
+      });
     });
   });
+
 });
