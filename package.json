@@ -21,7 +21,7 @@
     "test": "node_modules/.bin/mocha"
   },
   "dependencies": {
-    "request": "~2.48.0"
+    "request": "~2.49.0"
   },
   "noAnalyze": true,
   "license": "MIT",

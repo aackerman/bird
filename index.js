@@ -76,7 +76,7 @@ Object.keys(routefile).forEach(function(namespace) {
           oauth: oauth
         };
         if (opts.qs.media) {
-          opts.formData = { "media": fs.createReadStream(opts.qs.media) };
+          opts.formData = { media: fs.createReadStream(opts.qs.media) };
           delete opts.qs;
         }
         return request[verb](opts, callback);
