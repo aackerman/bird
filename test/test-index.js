@@ -156,4 +156,13 @@ describe("Bird", function(){
     });
   });
 
+  describe('Bird.application.rateLimits', function(){
+    it('returns the current api limits for the application', function(done){
+      Bird.application.rateLimits({ oauth: oauth }, function(err, r, b){
+        expect(r.statusCode).to.eq(200);
+        done();
+      });
+    });
+  });
+
 });
