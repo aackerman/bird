@@ -1,5 +1,6 @@
 var Bird   = require('../index');
 var expect = require('chai').expect;
+var path   = require('path');
 var oauth  = {
   consumer_key: process.env.TW_CONSUMER_KEY,
   consumer_secret: process.env.TW_CONSUMER_SECRET,
@@ -118,6 +119,39 @@ describe("Bird", function(){
           Bird.tweets.show({ oauth: oauth });
         }
         expect(fn).to.throw(Error);
+      });
+    });
+  });
+
+  describe('Bird.media.upload', function(){
+    it('uploads the test image', function(done){
+      Bird.media.upload({
+        oauth: oauth,
+        media: path.resolve('test/test-media.png')
+      }, function(err, r, b){
+        expect(r.statusCode).to.eq(200);
+        done();
+      });
+    });
+
+    describe('attaching an image to a tweet', function(){
+      it('attaches the media by id to a new tweet', function(done){
+        Bird.media.upload({
+          oauth: oauth,
+          media: path.resolve('test/test-media.png')
+        }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+
+          // attach media ids to from uploaded file to tweet
+          Bird.tweets.update({
+            oauth: oauth,
+            status: 'Bird.tweets.update ' + Date.now(),
+            media_ids: JSON.parse(b).media_id_string
+          }, function(err, r, b){
+            expect(r.statusCode).to.eq(200);
+            done();
+          });
+        });
       });
     });
   });
