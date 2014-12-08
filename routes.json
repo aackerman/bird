@@ -38,7 +38,8 @@
         "needs": "status"
       },
       "tweet":  {
-        "url": "statuses/update"
+        "url": "statuses/update",
+        "needs": "status"
       },
       "destroy": {
         "url": "statuses/destroy/:id",
