@@ -165,4 +165,13 @@ describe("Bird", function(){
     });
   });
 
+  describe('Bird.followers.index', function(){
+    it('returns the current api limits for the application', function(done){
+      Bird.followers.index({ oauth: oauth }, function(err, r, b){
+        expect(r.statusCode).to.eq(200);
+        done();
+      });
+    });
+  });
+
 });
