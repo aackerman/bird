@@ -183,4 +183,47 @@ describe("Bird", function(){
     });
   });
 
+  describe('Bird.help', function(){
+    it('is a namespace', function(){
+      expect(Bird.help).to.be.an('object');
+    });
+
+    describe('Bird.help.configuration', function(){
+      it('returns some configuration', function(done){
+        Bird.help.configuration({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+
+    describe('Bird.help.languages', function(){
+      it('returns some language info', function(done){
+        Bird.help.languages({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+
+    describe('Bird.help.privacy', function(){
+      it('returns some privacy info', function(done){
+        Bird.help.privacy({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+
+    describe('Bird.help.tos', function(){
+      it('returns the twitter terms of service', function(done){
+        Bird.help.tos({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+
+  });
+
 });
