@@ -125,6 +125,9 @@ describe("Bird", function(){
 
   describe('Bird.media.upload', function(){
     it('uploads the test image', function(done){
+      // increase the timeout to 5s
+      this.timeout(5000);
+
       Bird.media.upload({
         oauth: oauth,
         media: path.resolve('test/test-media.png')
@@ -136,6 +139,9 @@ describe("Bird", function(){
 
     describe('attaching an image to a tweet', function(){
       it('attaches the media by id to a new tweet', function(done){
+        // increase the timeout to 5s
+        this.timeout(5000);
+
         Bird.media.upload({
           oauth: oauth,
           media: path.resolve('test/test-media.png')
@@ -234,6 +240,15 @@ describe("Bird", function(){
     describe('Bird.trends.place', function(){
       it('returns trending places', function(done){
         Bird.trends.place({ oauth: oauth, id: 1 }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+
+    describe('Bird.trends.available', function(){
+      it('returns available trends', function(done){
+        Bird.trends.available({ oauth: oauth }, function(err, r, b){
           expect(r.statusCode).to.eq(200);
           done();
         });

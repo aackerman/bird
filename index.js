@@ -22,7 +22,7 @@ var createRequestUrl = function(opts, options) {
     if (val) {
       url = url.replace(":" + opts.needs, options[opts.needs]);
     } else {
-      throw new Error('Missing interpolation value ' + opts.needs + ' in options');
+      throw new Error('Missing ' + opts.needs + ' value in options');
     }
   }
   return SCHEME + ((opts.url == "media/upload") ? MEDIA_HOSTNAME : HOSTNAME) + '/' + API_VERSION + '/' + url + '.json';
