@@ -2,12 +2,12 @@ var request   = require('request');
 var routefile = require('./routes.json');
 var fs        = require('fs');
 
-var SCHEME = 'https://';
+var PROTOCOL = 'https://';
 var HOSTNAME = 'api.twitter.com';
 var MEDIA_HOSTNAME = 'upload.twitter.com';
 var API_VERSION = '1.1';
-var REQUEST_TOKEN_PATH = SCHEME + [HOSTNAME, 'oauth', 'request_token'].join('/');
-var ACCESS_TOKEN_PATH = SCHEME + [HOSTNAME, 'oauth', 'access_token'].join('/');
+var REQUEST_TOKEN_PATH = PROTOCOL + [HOSTNAME, 'oauth', 'request_token'].join('/');
+var ACCESS_TOKEN_PATH = PROTOCOL + [HOSTNAME, 'oauth', 'access_token'].join('/');
 
 var throwOnInvalidOauth = function(options){
   if ( !options.oauth ) {
@@ -20,12 +20,13 @@ var createRequestUrl = function(opts, options) {
   if (opts && opts.needs) {
     val = options[opts.needs];
     if (val) {
+      // interpolate value directly into the URL
       url = url.replace(":" + opts.needs, options[opts.needs]);
     } else {
       throw new Error('Missing ' + opts.needs + ' value in options');
     }
   }
-  return SCHEME + ((opts.url == "media/upload") ? MEDIA_HOSTNAME : HOSTNAME) + '/' + API_VERSION + '/' + url + '.json';
+  return PROTOCOL + ((opts.url == "media/upload") ? MEDIA_HOSTNAME : HOSTNAME) + '/' + API_VERSION + '/' + url + '.json';
 }
 
 var Bird = {

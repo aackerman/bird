@@ -296,7 +296,8 @@
         "url": "trends/available"
       },
       "closest": {
-        "url": "trends/closest"
+        "url": "trends/closest",
+        "needs": ["lat", "long"]
       }
     }
   },
