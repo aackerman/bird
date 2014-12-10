@@ -226,4 +226,19 @@ describe("Bird", function(){
 
   });
 
+  describe('Bird.trends', function(){
+    it('is a namespace', function(){
+      expect(Bird.trends).to.be.an('object');
+    });
+
+    describe('Bird.trends.place', function(){
+      it('returns trending places', function(done){
+        Bird.trends.place({ oauth: oauth, id: 1 }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+  });
+
 });

@@ -289,7 +289,8 @@
   "trends": {
     "get": {
       "place": {
-        "url": "trends/place"
+        "url": "trends/place",
+        "needs": "id"
       },
       "available": {
         "url": "trends/available"
