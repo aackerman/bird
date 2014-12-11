@@ -8,9 +8,9 @@ A repo with examples can be viewed [here](https://github.com/aackerman/bird-exam
 
 ### Streams
 
-Bird is just a wrapper around [request](https://github.com/mikeal/request). And [request](https://github.com/mikeal/request) offers a stream interface and the standard Node callback interface. So Bird does this just as well.
+Bird is a wrapper around [request](https://github.com/mikeal/request). And [request](https://github.com/mikeal/request) offers a stream interface and the standard Node callback interface. Bird does this just as well.
 
-Imagine an express route that returns a users home timeline as json. You can simply pipe the call to the response.
+Imagine an express route that returns a users home timeline as json. You can pipe the call directly to the response.
 
 ```js
 // assuming you have the users oauth credentials
@@ -51,9 +51,6 @@ Bird.media.upload(options, function(err, httpResponse, body) {
   });
 });
 ```
-
-
-
 
 ## Routes
 

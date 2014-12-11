@@ -2,7 +2,7 @@
   "name": "bird",
   "version": "0.7.0",
   "author": "Aaron Ackerman <theron17@gmail.com>",
-  "description": "Simple Twitter API Wrapper",
+  "description": "Twitter API Wrapper",
   "contributors": [
     {
       "name": "Aaron Ackerman",
