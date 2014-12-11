@@ -16,12 +16,25 @@ var throwOnInvalidOauth = function(options){
 };
 
 var createRequestUrl = function(opts, options) {
-  var url = opts.url, val;
+  var url = opts.url, replacements = {};
   if (opts && opts.needs) {
-    val = options[opts.needs];
-    if (val) {
-      // interpolate value directly into the URL
-      url = url.replace(":" + opts.needs, options[opts.needs]);
+
+    // replacements is a map of keys and values to
+    // interpolate into the URL
+    if (Array.isArray(opts.needs)) {
+      replacements = opts.needs.reduce(function(memo, key){
+        if (options[key] !== undefined) { memo[key] = options[key]; }
+        return memo;
+      }, {});
+    } else if (opts.needs && options[opts.needs] !== undefined) {
+      replacements[opts.needs] = options[opts.needs];
+    }
+
+    if ( Object.keys(replacements).length > 0 ) {
+      // interpolate values directly into the URL
+      Object.keys(replacements).forEach(function(k){
+        url = url.replace(":" + k, options[k]);
+      });
     } else {
       throw new Error('Missing ' + opts.needs + ' value in options');
     }

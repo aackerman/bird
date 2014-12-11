@@ -90,10 +90,9 @@ describe("Bird", function(){
 
     describe('Bird.tweets.retweets', function(){
       it("throws an error when not given an id parameter", function(){
-        var fn = function(){
+        expect(function(){
           Bird.tweets.show({ oauth: oauth });
-        }
-        expect(fn).to.throw(Error);
+        }).to.throw(Error);
       });
     });
 
@@ -249,6 +248,21 @@ describe("Bird", function(){
     describe('Bird.trends.available', function(){
       it('returns available trends', function(done){
         Bird.trends.available({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+
+    describe('Bird.trends.closest', function(){
+      it('throws when necessary params are not provided', function(){
+        expect(function(){
+          Bird.trends.closest({ oauth: oauth });
+        }).to.throw(Error);
+      });
+
+      it('returns available trends', function(done){
+        Bird.trends.closest({ oauth: oauth, lat: 0, long: 0 }, function(err, r, b){
           expect(r.statusCode).to.eq(200);
           done();
         });
