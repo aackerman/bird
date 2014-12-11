@@ -22,6 +22,8 @@ Bird.timelines.home({ oauth: oauth }).pipe(res)
 Uploading media [is a 2-part process](https://dev.twitter.com/rest/public/uploading-media-multiple-photos).
 
 ```js
+var path = require('path');
+
 var options = {
   oauth:  {
     consumer_key: 'XXXXXXXXXXXXXXXXXX',
@@ -29,10 +31,10 @@ var options = {
     token: 'XXXXXXXXXXXXXXXXXX',
     token_secret: 'XXXXXXXXXXXXXXXXX'
   },
-  media: 'path/to/filename'
+  media: path.resolve('path/to/filename')
 }
 
-Bird.media.upload(options, function(err, httpResponse, body) {
+Bird.media.upload(options, function(err, r, body) {
   if (err) throw err;
 
   var options = {
