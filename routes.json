@@ -19,11 +19,11 @@
     "get": {
       "retweets": {
         "url": "statuses/retweets/:id",
-        "needs": "id"
+        "needsAll": ["id"]
       },
       "show": {
         "url": "statuses/show/:id",
-        "needs": "id"
+        "needsAll": ["id"]
       },
       "oembed": {
         "url": "statuses/oembed"
@@ -35,19 +35,19 @@
     "post": {
       "update": {
         "url": "statuses/update",
-        "needs": "status"
+        "needsAll": ["status"]
       },
       "tweet":  {
         "url": "statuses/update",
-        "needs": "status"
+        "needsAll": ["status"]
       },
       "destroy": {
         "url": "statuses/destroy/:id",
-        "needs": "id"
+        "needsAll": ["id"]
       },
       "retweet": {
         "url": "statuses/retweet/:id",
-        "needs": "id"
+        "needsAll": ["id"]
       },
       "updateWithMedia": {
         "url": "statuses/update_with_media"
@@ -207,12 +207,16 @@
         "url": "users/contributors"
       },
       "suggestionsWithSlug": {
-        "needs": "slug",
+        "needsAll": ["slug"],
         "url": "users/suggestions/:slug"
       },
       "suggestionsWithSlugMembers": {
-        "needs": "slug",
+        "needsAll": ["slug"],
         "url": "users/suggestions/:slug/members"
+      },
+      "report_spam": {
+        "url": "users/report_spam",
+        "needsOne": ["screen_name", "user_id"]
       }
     }
   },
@@ -267,7 +271,7 @@
   "geo": {
     "get": {
       "place": {
-        "needs": "place_id",
+        "needsAll": ["place_id"],
         "url": "geo/id/:place_id"
       },
       "geocode": {
@@ -290,14 +294,14 @@
     "get": {
       "place": {
         "url": "trends/place",
-        "needs": "id"
+        "needsAll": ["id"]
       },
       "available": {
         "url": "trends/available"
       },
       "closest": {
         "url": "trends/closest",
-        "needs": ["lat", "long"]
+        "needsAll": ["lat", "long"]
       }
     }
   },

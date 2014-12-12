@@ -15,31 +15,27 @@ var throwOnInvalidOauth = function(options){
   }
 };
 
-var createRequestUrl = function(opts, options) {
-  var url = opts.url, replacements = {};
-  if (opts && opts.needs) {
-
+var createRequestUrl = function(r, options) {
+  var url = r.url, needed;
+  if (r && r.needsAll || r.needsOne) {
     // replacements is a map of keys and values to
     // interpolate into the URL
-    if (Array.isArray(opts.needs)) {
-      replacements = opts.needs.reduce(function(memo, key){
-        if (options[key] !== undefined) { memo[key] = options[key]; }
-        return memo;
-      }, {});
-    } else if (opts.needs && options[opts.needs] !== undefined) {
-      replacements[opts.needs] = options[opts.needs];
-    }
+    replacements = (r.needsAll || r.needsOne).reduce(function(memo, key){
+      if (options[key] !== undefined) { memo[key] = options[key]; }
+      return memo;
+    }, {});
 
-    if ( Object.keys(replacements).length > 0 ) {
+    var replacementKeys = Object.keys(replacements);
+    if ( replacementKeys.length > 0 ) {
       // interpolate values directly into the URL
-      Object.keys(replacements).forEach(function(k){
+      replacementKeys.forEach(function(k){
         url = url.replace(":" + k, options[k]);
       });
     } else {
-      throw new Error('Missing ' + opts.needs + ' value in options');
+      throw new Error('Missing ' + r.needsAll + ' value in options');
     }
   }
-  return PROTOCOL + ((opts.url == "media/upload") ? MEDIA_HOSTNAME : HOSTNAME) + '/' + API_VERSION + '/' + url + '.json';
+  return PROTOCOL + ((r.url == "media/upload") ? MEDIA_HOSTNAME : HOSTNAME) + '/' + API_VERSION + '/' + url + '.json';
 }
 
 var Bird = {
