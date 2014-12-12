@@ -270,4 +270,18 @@ describe("Bird", function(){
     });
   });
 
+  describe('Bird.users', function(){
+    it('is a namespace', function() {
+      expect(Bird.users).to.be.an('object');
+    });
+
+    describe('Bird.users.reportSpam', function(){
+      it('throws when necessary params are not provided', function(){
+        expect(function(){
+          Bird.users.reportSpam({ oauth: oauth });
+        }).to.throw(Error);
+      });
+    });
+  });
+
 });

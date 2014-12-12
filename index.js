@@ -16,12 +16,17 @@ var throwOnInvalidOauth = function(options){
 };
 
 var createRequestUrl = function(r, options) {
-  var url = r.url, needed;
+  var url = r.url, missing = [], needs;
   if (r && r.needsAll || r.needsOne) {
+    needs = (r.needsAll || r.needsOne);
     // replacements is a map of keys and values to
     // interpolate into the URL
-    replacements = (r.needsAll || r.needsOne).reduce(function(memo, key){
-      if (options[key] !== undefined) { memo[key] = options[key]; }
+    replacements = needs.reduce(function(memo, key){
+      if (options[key] !== undefined) {
+        memo[key] = options[key];
+      } else {
+        missing.push(key);
+      }
       return memo;
     }, {});
 
@@ -32,7 +37,7 @@ var createRequestUrl = function(r, options) {
         url = url.replace(":" + k, options[k]);
       });
     } else {
-      throw new Error('Missing ' + r.needsAll + ' value in options');
+      throw new Error('Missing ' + missing.join(', ') + ' value in options');
     }
   }
   return PROTOCOL + ((r.url == "media/upload") ? MEDIA_HOSTNAME : HOSTNAME) + '/' + API_VERSION + '/' + url + '.json';

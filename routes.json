@@ -214,7 +214,7 @@
         "needsAll": ["slug"],
         "url": "users/suggestions/:slug/members"
       },
-      "report_spam": {
+      "reportSpam": {
         "url": "users/report_spam",
         "needsOne": ["screen_name", "user_id"]
       }
