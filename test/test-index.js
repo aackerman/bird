@@ -288,6 +288,14 @@ describe("Bird", function(){
     it('is a namespace', function(){
       expect(Bird.geo).to.be.an('object');
     });
+
+    describe('Bird.geo.place', function(){
+      it('throws without required params', function(){
+        expect(function(){
+          Bird.geo.place({ oauth: oauth });
+        }).to.throw(Error);
+      });
+    });
   });
 
 });
