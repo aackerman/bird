@@ -284,4 +284,10 @@ describe("Bird", function(){
     });
   });
 
+  describe('Bird.geo', function(){
+    it('is a namespace', function(){
+      expect(Bird.geo).to.be.an('object');
+    });
+  });
+
 });
