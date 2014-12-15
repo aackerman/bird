@@ -295,6 +295,13 @@ describe("Bird", function(){
           Bird.geo.place({ oauth: oauth });
         }).to.throw(Error);
       });
+
+      it('returns info for a place_id', function(done){
+        Bird.geo.place({ oauth: oauth, place_id: 'df51dec6f4ee2b2c' }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
     });
   });
 
