@@ -1,6 +1,7 @@
 var Bird   = require('../index');
 var expect = require('chai').expect;
 var path   = require('path');
+var Q      = require('q');
 var oauth  = {
   consumer_key: process.env.TW_CONSUMER_KEY,
   consumer_secret: process.env.TW_CONSUMER_SECRET,
@@ -9,6 +10,17 @@ var oauth  = {
 };
 
 describe("Bird", function(){
+
+  describe('Bird with promises', function(){
+    it('works with denodeify', function(done){
+      var tweet = Q.denodeify(Bird.tweets.tweet);
+      tweet({ oauth: oauth, status: 'Bird.tweets.tweet with promises ' + Date.now() }).then(function(result){
+        var r = result[0], b = result[1];
+        expect(r.statusCode).to.eq(200);
+        done();
+      });
+    });
+  });
 
   describe('requestToken', function(){
     it('returns a valid oauth token', function(done){
