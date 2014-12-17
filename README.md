@@ -63,7 +63,10 @@ var Bird  = require('bird');
 var Q     = require('q');
 var tweet = Q.denodeify(Bird.tweets.tweet);
 
-tweet.then(function(result){
+tweet({
+  oauth: oauth,
+  status: 'Tweeting with promises!'
+}).then(function(result){
   var resp = result[0], body = result[1];
 });
 ```
