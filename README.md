@@ -136,7 +136,8 @@ tweet({
      contributees: ...,
      contributors: ...,
      suggestionsWithSlug: ...,
-     suggestionsWithSlugMembers: ... },
+     suggestionsWithSlugMembers: ...,
+     reportSpam: ... },
   favorites:
    { list: ...,
      create: ...,
@@ -167,7 +168,8 @@ tweet({
      languages: ...,
      privacy: ...,
      tos: ... },
-  application: { rateLimits: ... } }
+  application: { rateLimits: ... },
+  media: { upload: ... } }
 ```
 
 ## Author
