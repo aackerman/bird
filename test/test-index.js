@@ -317,8 +317,17 @@ describe("Bird", function(){
     });
 
     describe('Bird.geo.search', function(){
-      it('returns search results', function(){
+      it('returns search results', function(done){
         Bird.geo.search({ oauth: oauth, query: 'Boston' }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+
+    describe('Bird.geo.reverseGeocode', function(){
+      it('returns search results', function(done){
+        Bird.geo.reverseGeocode({ oauth: oauth, lat: 37.76893497, long: -122.42284884 }, function(err, r, b){
           expect(r.statusCode).to.eq(200);
           done();
         });
