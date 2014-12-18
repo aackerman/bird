@@ -275,7 +275,12 @@
         "url": "geo/id/:place_id"
       },
       "geocode": {
-        "url": "geo/reverse_geocode"
+        "url": "geo/reverse_geocode",
+        "needsAll": ["lat", "long"]
+      },
+      "reverseGeocode": {
+        "url": "geo/reverse_geocode",
+        "needsAll": ["lat", "long"]
       },
       "search": {
         "url": "geo/search",
