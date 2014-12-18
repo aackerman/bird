@@ -278,7 +278,8 @@
         "url": "geo/reverse_geocode"
       },
       "search": {
-        "url": "geo/search"
+        "url": "geo/search",
+        "needsOne": ["lat", "long", "ip", "query"]
       },
       "similarPlaces": {
         "url": "geo/similar_places"

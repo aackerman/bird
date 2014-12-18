@@ -315,6 +315,15 @@ describe("Bird", function(){
         });
       });
     });
+
+    describe('Bird.geo.search', function(){
+      it('returns search results', function(){
+        Bird.geo.search({ oauth: oauth, query: 'Boston' }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
   });
 
 });
