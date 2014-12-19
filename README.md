@@ -12,7 +12,7 @@ It's necessary with every call to include oauth credentials for your app and the
 
 The oauth credentials should look something close to the following.
 
-```
+```js
 var options = {
   oauth:  {
     consumer_key: 'XXXXXXXXXXXXXXXXXX',
