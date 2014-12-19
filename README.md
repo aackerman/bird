@@ -20,10 +20,10 @@ var options = {
     token: 'XXXXXXXXXXXXXXXXXX',
     token_secret: 'XXXXXXXXXXXXXXXXX'
   }
-},
+};
 ```
 
-The options would be passed to a method in Bird with the consumer key and consumer secret of your app. And the token and token secret of the user requested through the normal oauth procedure. An example can be found in the example repo above.
+The options would be passed to a method in Bird with the consumer key and consumer secret of your app in place of the placeholder I've shown. And the token and token secret of the user requested through the normal oauth procedure. An example can be found in the example repo above.
 
 ### Streams
 
