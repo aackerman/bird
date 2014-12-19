@@ -77,7 +77,7 @@ Bird.media.upload(options, function(err, r, body) {
 
 Promises are not available directly with `bird`, but it's easy to wrap node-style error first methods with [`Q.denodeify`](https://www.npmjs.com/package/q). Here is an example.
 
-```
+```js
 var Bird  = require('bird');
 var Q     = require('q');
 var tweet = Q.denodeify(Bird.tweets.tweet);
