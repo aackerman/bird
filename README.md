@@ -8,7 +8,7 @@ A repo with examples can be viewed [here](https://github.com/aackerman/bird-exam
 
 ### Oauth
 
-It's necessary with every call to include oauth credentials for your app and the credentials of the use for whom you are making the request.
+It's necessary with every call to include oauth credentials for your app and the credentials of the user on behalf of whom you are making the request.
 
 The oauth credentials should look something close to the following.
 
