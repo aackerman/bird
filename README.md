@@ -6,6 +6,25 @@
 
 A repo with examples can be viewed [here](https://github.com/aackerman/bird-example-app).
 
+### Oauth
+
+It's necessary with every call to include oauth credentials for your app and the credentials of the use for whom you are making the request.
+
+The oauth credentials should look something close to the following.
+
+```
+var options = {
+  oauth:  {
+    consumer_key: 'XXXXXXXXXXXXXXXXXX',
+    consumer_secret: 'XXXXXXXXXXXXXXX',
+    token: 'XXXXXXXXXXXXXXXXXX',
+    token_secret: 'XXXXXXXXXXXXXXXXX'
+  }
+},
+```
+
+The options would be pass to a method in Bird with the consumer key and consumer secret of your app. And the token and token secret of the user requested through the normal oauth procedure. An example can be found in the example repo above.
+
 ### Streams
 
 Bird is a wrapper around [request](https://github.com/mikeal/request). And [request](https://github.com/mikeal/request) offers a stream interface and the standard Node callback interface. Bird does this just as well.
