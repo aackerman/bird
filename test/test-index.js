@@ -86,11 +86,26 @@ describe("Bird", function(){
         Bird.timelines.retweetsOfMe({ oauth: oauth }, function(err, r, b){
           expect(r.statusCode).to.eq(200);
           done();
-        })
+        });
       });
 
       it("throws an error when not given oauth parameters", function(){
         expect(Bird.timelines.retweetsOfMe).to.throw(Error);
+      });
+    });
+  });
+
+  describe('Bird.friends', function(){
+    it('is a namespace', function(){
+      expect(Bird.friends).to.be.an('object');
+    });
+
+    describe('Bird.friends.index', function(){
+      it('returns your index of friends', function(done){
+        Bird.friends.index({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
       });
     });
   });
