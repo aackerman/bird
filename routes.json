@@ -57,7 +57,8 @@
   "search": {
     "get": {
       "tweets": {
-        "url": "search/tweets"
+        "url": "search/tweets",
+        "needsAll": ["q"]
       }
     }
   },

@@ -296,6 +296,21 @@ describe("Bird", function(){
     });
   });
 
+  describe('Bird.search', function(){
+    it('is a namespace', function(){
+      expect(Bird.search).to.be.an('object');
+    });
+
+    describe('Bird.search.tweets', function(){
+      it('returns tweets for the query', function(done){
+        Bird.search.tweets({ oauth: oauth, q: 'birds' }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
+  });
+
   describe('Bird.geo', function(){
     it('is a namespace', function(){
       expect(Bird.geo).to.be.an('object');
