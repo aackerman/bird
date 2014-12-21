@@ -108,6 +108,15 @@ describe("Bird", function(){
         });
       });
     });
+
+    describe('Bird.friends.list', function(){
+      it('lists your friends', function(done){
+        Bird.friends.list({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
   });
 
   describe('Bird.tweets', function(){
