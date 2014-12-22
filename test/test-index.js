@@ -119,6 +119,12 @@ describe("Bird", function(){
     });
   });
 
+  describe('Bird.friendships', function(){
+    it('is a namespace', function(){
+      expect(Bird.friendships).to.be.an('object');
+    });
+  });
+
   describe('Bird.tweets', function(){
     it('is a namespace for each of the twitter tweets routes', function() {
       expect(Bird.tweets).to.be.an('object');
