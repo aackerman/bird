@@ -123,6 +123,15 @@ describe("Bird", function(){
     it('is a namespace', function(){
       expect(Bird.friendships).to.be.an('object');
     });
+
+    describe('Bird.friendships.noRetweets', function(){
+      it('returns a list of ids', function(done){
+        Bird.friendships.noRetweets({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
   });
 
   describe('Bird.tweets', function(){
