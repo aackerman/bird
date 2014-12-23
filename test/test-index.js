@@ -132,6 +132,15 @@ describe("Bird", function(){
         });
       });
     });
+
+    describe('Bird.friendships.show', function(){
+      xit('returns the current friendships for the user', function(done){
+        Bird.friendships.show({ oauth: oauth }, function(err, r, b){
+          expect(r.statusCode).to.eq(200);
+          done();
+        });
+      });
+    });
   });
 
   describe('Bird.tweets', function(){
