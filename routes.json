@@ -100,7 +100,7 @@
       },
       "show": {
         "url": "friendships/show",
-        "needsAll": [
+        "needsOneOfEach": [
           ["source_id", "source_screen_name"],
           ["target_id", "target_screen_name"]
         ]
