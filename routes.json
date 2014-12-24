@@ -99,7 +99,11 @@
         "url": "friendships/no_retweets/ids"
       },
       "show": {
-        "url": "friendships/show"
+        "url": "friendships/show",
+        "needsAll": [
+          ["source_id", "source_screen_name"],
+          ["target_id", "target_screen_name"]
+        ]
       },
       "lookup": {
         "url": "friendships/lookup"
