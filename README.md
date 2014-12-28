@@ -53,10 +53,12 @@ var options = {
     token_secret: 'XXXXXXXXXXXXXXXXX'
   },
   media: path.resolve('path/to/filename')
-}
+};
 
 Bird.media.upload(options, function(err, r, body) {
-  if (err) throw err;
+  if (err) {
+   throw err;
+  }
 
   var options = {
     oauth:  {
@@ -67,9 +69,11 @@ Bird.media.upload(options, function(err, r, body) {
     },
     status: 'hello world',
     media_ids: JSON.parse(body).media_id_string
-  }
+  };
   Bird.tweets.tweet(options, function(err, r, body){
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     console.log('successfully tweeted media');
   });
 });
