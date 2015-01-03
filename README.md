@@ -10,8 +10,6 @@ A repo with examples can be viewed [here](https://github.com/aackerman/bird-exam
 
 It's necessary with every call to include oauth credentials for your app and the credentials of the user on behalf of whom you are making the request.
 
-The oauth credentials should look something close to the following.
-
 ```js
 var options = {
   oauth:  {
@@ -43,6 +41,7 @@ app.get('/home', function(req, res){
 Uploading media [is a 2-part process](https://dev.twitter.com/rest/public/uploading-media-multiple-photos).
 
 ```js
+var Bird = require('bird');
 var path = require('path');
 
 var options = {
