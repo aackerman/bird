@@ -28,48 +28,219 @@
         </ul>
       </header>
       <section>
-        <h2>
-<a name="bird-bird" class="anchor" href="#bird-bird"><span class="octicon octicon-link"></span></a>Bird <img class="emoji" title=":bird:" alt=":bird:" src="https://github.global.ssl.fastly.net/images/icons/emoji/bird.png" height="20" width="20" align="absmiddle">
-</h2>
+        <h1>
+<a id="bird-" class="anchor" href="#bird-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bird <a href="https://travis-ci.org/aackerman/bird"><img src="https://travis-ci.org/aackerman/bird.png?branch=master" alt="Build Status"></a>
+</h1>
 
 <h3>
-<a name="simple-wrapper-around-request-to-consume-the-twitter-api" class="anchor" href="#simple-wrapper-around-request-to-consume-the-twitter-api"><span class="octicon octicon-link"></span></a>Simple wrapper around <a href="https://github.com/mikeal/request">request</a> to consume the Twitter API</h3>
+<a id="a-wrapper-around-request-to-consume-the-twitter-api" class="anchor" href="#a-wrapper-around-request-to-consume-the-twitter-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>A wrapper around <a href="https://github.com/mikeal/request">request</a> to consume the Twitter API</h3>
 
-<p>Bird methods match up to twitter resources.</p>
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
 
-<div class="highlight highlight-js"><pre><span class="nx">Bird</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">requestToken</span><span class="p">({</span>
-  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">consumer_key</span><span class="o">:</span> <span class="s1">'XXXXXXXXXXXXXXXXXXXXX'</span><span class="p">,</span>
-    <span class="nx">consumer_secret</span><span class="o">:</span> <span class="s1">'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'</span>
-  <span class="p">}</span>
-<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">body</span><span class="p">){</span>
-  <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
-  <span class="c1">// save the users token for later use</span>
-  <span class="c1">// redirect user to https://api.twitter.com/oauth/authorize?oauth_token= + token.oauth_token</span>
-<span class="p">});</span>
-</pre></div>
+<p>A repo with examples can be viewed <a href="https://github.com/aackerman/bird-example-app">here</a>.</p>
 
-<p>If the users authorizes your application, Twitter will make a <code>GET</code> request to your Twitter application callback URL. The request query string will contain an <code>oauth_verifier</code>. Then you can request a permanent access token to handle requests to the Twitter API on behalf of the user.</p>
+<h3>
+<a id="oauth" class="anchor" href="#oauth" aria-hidden="true"><span class="octicon octicon-link"></span></a>Oauth</h3>
 
-<div class="highlight highlight-js"><pre><span class="nx">Bird</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">accessToken</span><span class="p">({</span>
-  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">consumer_key</span><span class="o">:</span> <span class="s1">'XXXXXXXXXXXXXXXXXXXXX'</span><span class="p">,</span>
-    <span class="nx">consumer_secret</span><span class="o">:</span> <span class="s1">'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'</span><span class="p">,</span>
-    <span class="nx">token</span><span class="o">:</span> <span class="s1">'XXXXXXXXXXXXX'</span> <span class="c1">// the users OAuth token from `requestToken`</span>
-    <span class="nx">verifier</span><span class="o">:</span> <span class="s1">'XXXXXXXXXXXXX'</span> <span class="c1">// the verifier sent to your Twitter application callback route</span>
-  <span class="p">}</span>
-<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">body</span><span class="p">){</span>
-  <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
-  <span class="c1">// save the users `token.oauth_token` and `token.oauth_token_secret` here</span>
-<span class="p">})</span>
-</pre></div>
+<p>It's necessary with every call to include oauth credentials for your app and the credentials of the user on behalf of whom you are making the request.</p>
 
-<p>If you have the oauth token and token secret for a user you are ready to handle requests to Twitter on their behalf.</p>
+<div class="highlight highlight-js"><pre><span class="pl-s">var</span> options <span class="pl-k">=</span> {
+  oauth<span class="pl-k">:</span>  {
+    consumer_key<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+    consumer_secret<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+    token<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+    token_secret<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>
+  }
+};</pre></div>
 
-<div class="highlight highlight-js"><pre><span class="nx">Bird</span><span class="p">.</span><span class="nx">timelines</span><span class="p">.</span><span class="nx">home</span><span class="p">({</span> <span class="nx">oauth</span><span class="o">:</span> <span class="nx">oauth</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">body</span><span class="p">){</span>
-  <span class="c1">// the body will be an array of tweets</span>
-<span class="p">});</span>
-</pre></div>
+<p>The options would be passed to a method in Bird with the consumer key and consumer secret of your app in place of the placeholder I've shown. And the token and token secret of the user requested through the normal oauth procedure. An example can be found in the example repo above.</p>
+
+<h3>
+<a id="streams" class="anchor" href="#streams" aria-hidden="true"><span class="octicon octicon-link"></span></a>Streams</h3>
+
+<p>Bird is a wrapper around <a href="https://github.com/mikeal/request">request</a>. And <a href="https://github.com/mikeal/request">request</a> offers a stream interface and the standard Node callback interface. Bird does this just as well.</p>
+
+<p>Imagine an express route that returns a users home timeline as json. You can pipe the call directly to the response.</p>
+
+<div class="highlight highlight-js"><pre>app.get(<span class="pl-s1"><span class="pl-pds">'</span>/home<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>(<span class="pl-vpf">req</span>, <span class="pl-vpf">res</span>){
+  <span class="pl-c">// assuming you have the users oauth credentials</span>
+  Bird.timelines.<span class="pl-s3">home</span>({ oauth<span class="pl-k">:</span> oauth }).pipe(res)
+});</pre></div>
+
+<h3>
+<a id="media" class="anchor" href="#media" aria-hidden="true"><span class="octicon octicon-link"></span></a>Media</h3>
+
+<p>Uploading media <a href="https://dev.twitter.com/rest/public/uploading-media-multiple-photos">is a 2-part process</a>.</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-s">var</span> Bird <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>bird<span class="pl-pds">'</span></span>);
+<span class="pl-s">var</span> path <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
+
+<span class="pl-s">var</span> options <span class="pl-k">=</span> {
+  oauth<span class="pl-k">:</span>  {
+    consumer_key<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+    consumer_secret<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+    token<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+    token_secret<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>
+  },
+  media<span class="pl-k">:</span> path.resolve(<span class="pl-s1"><span class="pl-pds">'</span>path/to/filename<span class="pl-pds">'</span></span>)
+};
+
+Bird.<span class="pl-sc">media</span>.upload(options, <span class="pl-st">function</span>(<span class="pl-vpf">err</span>, <span class="pl-vpf">r</span>, <span class="pl-vpf">body</span>) {
+  <span class="pl-k">if</span> (err) {
+   <span class="pl-k">throw</span> err;
+  }
+
+  <span class="pl-s">var</span> options <span class="pl-k">=</span> {
+    oauth<span class="pl-k">:</span>  {
+      consumer_key<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+      consumer_secret<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+      token<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>,
+      token_secret<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>XXXXXXXXXXXXXXXXX<span class="pl-pds">'</span></span>
+    },
+    status<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>hello world<span class="pl-pds">'</span></span>,
+    media_ids<span class="pl-k">:</span> JSON.<span class="pl-s3">parse</span>(body).media_id_string
+  };
+  Bird.tweets.tweet(options, <span class="pl-st">function</span>(<span class="pl-vpf">err</span>, <span class="pl-vpf">r</span>, <span class="pl-vpf">body</span>){
+    <span class="pl-k">if</span> (err) {
+      <span class="pl-k">throw</span> err;
+    }
+    <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>successfully tweeted media<span class="pl-pds">'</span></span>);
+  });
+});</pre></div>
+
+<h2>
+<a id="promises" class="anchor" href="#promises" aria-hidden="true"><span class="octicon octicon-link"></span></a>Promises</h2>
+
+<p>Promises are not available directly with <code>bird</code>, but it's easy to wrap node-style error first methods with <a href="https://www.npmjs.com/package/q"><code>Q.denodeify</code></a>. Here is an example.</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-s">var</span> Bird  <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>bird<span class="pl-pds">'</span></span>);
+<span class="pl-s">var</span> Q     <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>q<span class="pl-pds">'</span></span>);
+<span class="pl-s">var</span> tweet <span class="pl-k">=</span> Q.denodeify(Bird.tweets.tweet);
+
+tweet({
+  oauth<span class="pl-k">:</span> oauth,
+  status<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>Tweeting with promises!<span class="pl-pds">'</span></span>
+}).then(<span class="pl-st">function</span>(<span class="pl-vpf">result</span>){
+  <span class="pl-s">var</span> resp <span class="pl-k">=</span> result[<span class="pl-c1">0</span>], body <span class="pl-k">=</span> result[<span class="pl-c1">1</span>];
+});</pre></div>
+
+<h2>
+<a id="routes" class="anchor" href="#routes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Routes</h2>
+
+<pre><code>❯ node
+&gt; require('./index')
+{ auth:
+   { requestToken: ...,
+     accessToken: ... },
+  timelines:
+   { home: ...,
+     mentions: ...,
+     user: ...,
+     retweetsOfMe: ... },
+  tweets:
+   { retweets: ...,
+     show: ...,
+     oembed: ...,
+     retweeters: ...,
+     update: ...,
+     tweet: ...,
+     destroy: ...,
+     retweet: ...,
+     updateWithMedia: ... },
+  search: { tweets: ... },
+  messages:
+   { index: ...,
+     sent: ...,
+     show: ...,
+     destroy: ...,
+     new: ... },
+  friends: { index: ..., list: ... },
+  friendships:
+   { noRetweets: ...,
+     show: ...,
+     lookup: ...,
+     incoming: ...,
+     outgoing: ...,
+     create: ...,
+     destroy: ...,
+     update: ... },
+  followers: { index: ..., list: ... },
+  account:
+   { settings: ...,
+     verify: ...,
+     banner: ...,
+     updateSettings: ...,
+     updateDeliveryDevice: ...,
+     updateProfile: ...,
+     updateProfileBackgroundImage: ...,
+     updateProfileColors: ...,
+     updateProfileImage: ...,
+     removeProfileBanner: ...,
+     updateProfileBanner: ... },
+  blocks:
+   { list: ...,
+     index: ...,
+     create: ...,
+     destroy: ... },
+  users:
+   { lookup: ...,
+     show: ...,
+     search: ...,
+     contributees: ...,
+     contributors: ...,
+     suggestionsWithSlug: ...,
+     suggestionsWithSlugMembers: ...,
+     reportSpam: ... },
+  favorites:
+   { list: ...,
+     create: ...,
+     destroy: ... },
+  lists:
+   { list: ...,
+     statuses: ...,
+     memberships: ...,
+     subscribers: ...,
+     showSubscribers: ...,
+     removeMember: ...,
+     createMember: ...,
+     removeSubscriber: ...,
+     createSubscriber: ... },
+  geo:
+   { place: ...,
+     geocode: ...,
+     search: ...,
+     similarPlaces: ...,
+     createPlace: ... },
+  trends:
+   { place: ...,
+     available: ...,
+     closest: ... },
+  spam: { report: ... },
+  help:
+   { configuration: ...,
+     languages: ...,
+     privacy: ...,
+     tos: ... },
+  application: { rateLimits: ... },
+  media: { upload: ... } }
+</code></pre>
+
+<h2>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<table>
+<thead>
+<tr>
+<th><a href="http://twitter.com/_aaronackerman_" title="Follow @_aaronackerman_ on Twitter"><img src="http://gravatar.com/avatar/c73ff9c7e654647b2b339d9e08b52143?s=70" alt="twitter/_aaronackerman_"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://twitter.com/_aaronackerman_">Aaron Ackerman</a></td>
+</tr>
+</tbody>
+</table>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/aackerman">aackerman</a></p>
