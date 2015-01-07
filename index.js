@@ -1,6 +1,6 @@
 "use strict";
 var request   = require('request');
-var routefile = require('./routes.json');
+var routespec = require('./routes.json');
 var fs        = require('fs');
 
 var PROTOCOL           = 'https://';
@@ -64,11 +64,30 @@ var Bird = {
   }
 };
 
-// loop through each of the resources
-Object.keys(routefile).forEach(function(namespace) {
-  var verbs = routefile[namespace];
+/**
+  Route Spec
+  {
+    "namespace1": {
+      "get": {
+        "method1": {
+          "url": "url_to_append_to_base",
+          "needsOne": ["necessaryParam1", "necessaryParam1"]
+        },
+        "method2": {
+          "url": "url_to_append_to_base",
+          "needsAll": ["necessaryParam1", "necessaryParam1"]
+        }
+      }
+    },
+    "namespace2": {
+      ...
+    }
+  }
+*/
+Object.keys(routespec).forEach(function(namespace) {
+  var verbs = routespec[namespace];
 
-  // ensure a namespace for each namespace exists
+  // ensure a namespace exists
   Bird[namespace] = Bird[namespace] || {};
 
   // loop through each http verb in the namespaces
