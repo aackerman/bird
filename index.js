@@ -1,22 +1,18 @@
+"use strict";
 var request   = require('request');
 var routefile = require('./routes.json');
 var fs        = require('fs');
 
-var PROTOCOL = 'https://';
-var HOSTNAME = 'api.twitter.com';
-var MEDIA_HOSTNAME = 'upload.twitter.com';
-var API_VERSION = '1.1';
+var PROTOCOL           = 'https://';
+var HOSTNAME           = 'api.twitter.com';
+var MEDIA_HOSTNAME     = 'upload.twitter.com';
+var API_VERSION        = '1.1';
 var REQUEST_TOKEN_PATH = PROTOCOL + [HOSTNAME, 'oauth', 'request_token'].join('/');
-var ACCESS_TOKEN_PATH = PROTOCOL + [HOSTNAME, 'oauth', 'access_token'].join('/');
+var ACCESS_TOKEN_PATH  = PROTOCOL + [HOSTNAME, 'oauth', 'access_token'].join('/');
+var MISSING_OAUTH_ERR  = 'Missing `oauth` parameter';
 
-var throwOnInvalidOauth = function(options){
-  if ( !options.oauth ) {
-    throw new Error('You must pass oauth as an option');
-  }
-};
-
-var createRequestUrl = function(r, options) {
-  var url = r.url, missing = [], needs;
+function createRequestUrl(r, options) {
+  var url = r.url, missing = [], needs, replacements;
   if (r && r.needsAll || r.needsOne) {
     needs = (r.needsAll || r.needsOne);
     // replacements is a map of keys and values to
@@ -46,7 +42,9 @@ var createRequestUrl = function(r, options) {
 var Bird = {
   auth: {
     requestToken: function(opts, callback) {
-      throwOnInvalidOauth(opts);
+      if ( opts.oauth === undefined ) {
+        throw new Error(MISSING_OAUTH_ERR);
+      }
       return request.post({
         url: REQUEST_TOKEN_PATH,
         oauth: opts.oauth,
@@ -54,7 +52,9 @@ var Bird = {
       }, callback);
     },
     accessToken: function(opts, callback) {
-      throwOnInvalidOauth(opts);
+      if ( opts.oauth === undefined ) {
+        throw new Error(MISSING_OAUTH_ERR);
+      }
       return request.post({
         url: ACCESS_TOKEN_PATH,
         oauth: opts.oauth,
@@ -82,9 +82,12 @@ Object.keys(routefile).forEach(function(namespace) {
       // create methods for each route
       Bird[namespace][route] = function(useropts, callback){
         useropts = useropts || {};
-        throwOnInvalidOauth(useropts);
+        if ( useropts.oauth === undefined ) {
+          throw new Error(MISSING_OAUTH_ERR);
+        }
+
         var oauth = useropts.oauth;
-        delete useropts.oauth
+        delete useropts.oauth;
         var opts = {
           url:   createRequestUrl(routeopts, useropts),
           qs:    useropts,

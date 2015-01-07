@@ -95,7 +95,7 @@ tweet({
 });
 ```
 
-## Routes
+## Methods
 
 ```
 ❯ node
