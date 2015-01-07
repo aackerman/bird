@@ -1,4 +1,18 @@
 {
-  "node": true,
-  "undef": true
+  "node": true,        // Assume node env methods such as `require`
+  "undef": true,       // Require all non-global variables be declared before they are used.
+  "unused": true,      // Warns when you define and never use your variables
+  "strict": true,      // Require `use strict` pragma in every file.
+  "curly": true,       // Require {} for every new block or scope.
+  "eqeqeq": true,      // Require triple equals i.e. `===`.
+  "noarg": true,       // Prohibit use of `arguments.caller` and `arguments.callee`.
+  "newcap": true,      // Require capitalization of all constructor functions e.g. `new F()`.
+  "white": true,       // Check against strict whitespace and indentation rules.
+  "nonew": true,       // Prohibit use of constructors for side-effects.
+  "camelcase": true,   // Force camelCase or UPPER_CASE with underscores
+  "freeze": true,      // Freeze native objects from extension
+  "maxparams": 3,      // Use 3 maximum params
+  "esnext": true,      // Using ES6
+  "quotmark": true,    // Enforce consistent quotations
+  "singleGroups": true // Prevent using grouping operator with single-expression statements
 }

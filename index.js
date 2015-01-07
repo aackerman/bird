@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var request   = require('request');
 var routespec = require('./routes.json');
 var fs        = require('fs');
@@ -14,7 +14,7 @@ var MISSING_OAUTH_ERR  = 'Missing `oauth` parameter';
 function createRequestUrl(r, options) {
   var url = r.url, missing = [], needs, replacements;
   if (r && r.needsAll || r.needsOne) {
-    needs = (r.needsAll || r.needsOne);
+    needs = r.needsAll || r.needsOne;
     // replacements is a map of keys and values to
     // interpolate into the URL
     replacements = needs.reduce(function(memo, key){
@@ -30,13 +30,14 @@ function createRequestUrl(r, options) {
     if ( replacementKeys.length > 0 ) {
       // interpolate values directly into the URL
       replacementKeys.forEach(function(k){
-        url = url.replace(":" + k, options[k]);
+        url = url.replace(':' + k, options[k]);
       });
     } else {
       throw new Error('Missing ' + missing.join(', ') + ' value in options');
     }
   }
-  return PROTOCOL + ((r.url == "media/upload") ? MEDIA_HOSTNAME : HOSTNAME) + '/' + API_VERSION + '/' + url + '.json';
+  var hostname = r.url === 'media/upload' ? MEDIA_HOSTNAME : HOSTNAME;
+  return PROTOCOL + hostname + '/' + API_VERSION + '/' + url + '.json';
 }
 
 var Bird = {
