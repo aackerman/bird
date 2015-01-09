@@ -19,7 +19,7 @@
     "api"
   ],
   "scripts": {
-    "test": "cp routes.json dist && npm run js && node_modules/.bin/mocha",
+    "test": "cp routes.json dist/routes.json && npm run js && node_modules/.bin/mocha",
     "js": "6to5 --modules common index.js --out-dir dist"
   },
   "dependencies": {
