@@ -1,7 +1,7 @@
 'use strict';
-var request   = require('request');
+import request from 'request';
+import fs from 'fs';
 var routespec = require('./routes.json');
-var fs        = require('fs');
 
 var PROTOCOL           = 'https://';
 var HOSTNAME           = 'api.twitter.com';
@@ -11,13 +11,13 @@ var REQUEST_TOKEN_PATH = PROTOCOL + [HOSTNAME, 'oauth', 'request_token'].join('/
 var ACCESS_TOKEN_PATH  = PROTOCOL + [HOSTNAME, 'oauth', 'access_token'].join('/');
 var MISSING_OAUTH_ERR  = 'Missing `oauth` parameter';
 
-function createRequestUrl(r, options) {
+var createRequestUrl = (r, options) => {
   var url = r.url, missing = [], needs, replacements;
   if (r && r.needsAll || r.needsOne) {
     needs = r.needsAll || r.needsOne;
     // replacements is a map of keys and values to
     // interpolate into the URL
-    replacements = needs.reduce(function(memo, key){
+    replacements = needs.reduce((memo, key) => {
       if (options[key] !== undefined) {
         memo[key] = options[key];
       } else {
@@ -29,7 +29,7 @@ function createRequestUrl(r, options) {
     var replacementKeys = Object.keys(replacements);
     if ( replacementKeys.length > 0 ) {
       // interpolate values directly into the URL
-      replacementKeys.forEach(function(k){
+      replacementKeys.forEach((k) => {
         url = url.replace(':' + k, options[k]);
       });
     } else {
@@ -42,7 +42,7 @@ function createRequestUrl(r, options) {
 
 var Bird = {
   auth: {
-    requestToken: function(opts, callback) {
+    requestToken(opts, callback) {
       if ( opts.oauth === undefined ) {
         throw new Error(MISSING_OAUTH_ERR);
       }
@@ -52,7 +52,7 @@ var Bird = {
         json: true
       }, callback);
     },
-    accessToken: function(opts, callback) {
+    accessToken(opts, callback) {
       if ( opts.oauth === undefined ) {
         throw new Error(MISSING_OAUTH_ERR);
       }
@@ -85,22 +85,22 @@ var Bird = {
     }
   }
 */
-Object.keys(routespec).forEach(function(namespace) {
+Object.keys(routespec).forEach((namespace) => {
   var verbs = routespec[namespace];
 
   // ensure a namespace exists
   Bird[namespace] = Bird[namespace] || {};
 
   // loop through each http verb in the namespaces
-  Object.keys(verbs).forEach(function(verb){
+  Object.keys(verbs).forEach((verb) => {
     var routes = verbs[verb];
 
     // loop through the routes and add each route to the Bird namespace
-    Object.keys(routes).forEach(function(route){
+    Object.keys(routes).forEach((route) => {
       var routeopts = routes[route];
 
       // create methods for each route
-      Bird[namespace][route] = function(useropts, callback){
+      Bird[namespace][route] = (useropts, callback) => {
         useropts = useropts || {};
         if ( useropts.oauth === undefined ) {
           throw new Error(MISSING_OAUTH_ERR);

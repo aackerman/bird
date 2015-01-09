@@ -1,4 +1,4 @@
-var Bird   = require('../index');
+var Bird   = require('../dist/index');
 var expect = require('chai').expect;
 var path   = require('path');
 var Q      = require('q');
