@@ -95,6 +95,21 @@ tweet({
 });
 ```
 
+## Testing
+
+```
+$ git clone https://github.com/aackerman/bird.git
+$ cd bird
+$ export TW_CONSUMER_KEY='XXXXXXXXXXXX'
+$ export TW_CONSUMER_SECRET='XXXXXXXXXX'
+$ export TW_TEST_TOKEN='XXXXXXXXXXX'
+$ export TW_TEST_TOKEN_SECRET='XXXXXXXXXX'
+$ npm i
+$ npm test
+```
+
+`TW_CONSUMER_KEY` and `TW_CONSUMER_SECRET` should be oauth values provided from a test app. `TW_TEST_TOKEN` and `TW_TEST_TOKEN_SECRET` should be a users token and token secret which can be obtained through the twitter apps website.
+
 ## Methods
 
 ```
